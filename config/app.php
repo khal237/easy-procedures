@@ -45,6 +45,7 @@ return [
      * - paths - Configure paths for non class based resources. Supports the
      *   `plugins`, `templates`, `locales` subkeys, which allow the definition of
      *   paths for plugins, view templates and locale files respectively.
+     * 
      */
     'App' => [
         'namespace' => 'App',
@@ -82,7 +83,7 @@ return [
      * Apply timestamps with the last modified time to static assets (js, css, images).
      * Will append a querystring parameter containing the time the file was modified.
      * This is useful for busting browser caches.
-     *
+     *echo (new DefaultPasswordHasher())->hash('admin')
      * Set to true to apply timestamps when debug is true. Set to 'force' to always
      * enable timestamping regardless of debug value.
      */

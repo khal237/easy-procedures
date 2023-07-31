@@ -121,25 +121,29 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
         $authenticationService = new AuthenticationService();
         $authenticationService->setConfig([
-            'unauthenticatedRedirect' => '/auth/login',
-            'queryParam' => 'redirect'
+            'unauthenticatedRedirect' => Router::url([
+                'controller' => 'Auth',
+                'action' => 'login',
+            ]),
+            'queryParam' => 'redirect',
         ]);
 
-        $authenticationService->loadIdentifier('Authentication.Password', [
-            'fields' => [
-                'username' => 'email',
-                'password' => 'password'
-            ]
-        ]);
+        $fields = [
+            IdentifierInterface::CREDENTIAL_USERNAME => 'email',
+            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+        ];
 
-        $authenticationService->loadAuthenticator('Authentication.session');
+        $authenticationService->loadAuthenticator('Authentication.Session');
         $authenticationService->loadAuthenticator('Authentication.Form', [
-            'fields' => [
-                'username' => 'email',
-                'password' => 'password'
-            ],
-            'loginURL' => '/auth/login'
+            'fields' => $fields,
+            'loginUrl' => Router::url([
+                'controller' => 'Auth',
+                'action' => 'login',
+            ]),
         ]);
+
+
+        $authenticationService->loadIdentifier('Authentication.Password', compact('fields'));
 
         return $authenticationService;
     }

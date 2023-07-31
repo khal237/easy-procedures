@@ -1,5 +1,5 @@
 <div class="login-form">
-    <?= $this->form->create($user); ?>
+    <?= $this->form->create($user, ['controller' => 'Auth', 'action' => 'register']); ?>
     <div class="form-group">
         <?= $this->form->control('name', array('type' => 'text', 'placeholder' => 'name', 'class' => 'au-input au-input--full')) ?>
     </div>

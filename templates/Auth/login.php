@@ -1,12 +1,12 @@
 <div class="login-form">
-    <?= $this->Form->create(); ?>
+    <?= $this->Form->create(null); ?>
         <div class="form-group">
 
-            <?= $this->Form->control('email', array('type' => 'email', 'name'=>'email','placeholder' => 'email', 'class' => 'au-input au-input--full')) ?>
+            <?= $this->Form->control('email', array('type' => 'email', 'placeholder' => 'email', 'class' => 'au-input au-input--full')) ?>
         </div>
         <div class="form-group">
 
-            <?= $this->Form->control('password', array('type' => 'password','name'=>'password','placeholder' => 'password', 'class' => 'au-input au-input--full')) ?>
+            <?= $this->Form->control('password', array('type' => 'password', 'name' => 'password', 'placeholder' => 'password', 'class' => 'au-input au-input--full')) ?>
         </div>
         <div class="login-checkbox">
             <label>

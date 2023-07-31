@@ -29,7 +29,6 @@ use Cake\Validation\Validator;
  */
 class UsersTable extends Table
 {
-  
     /**
      * Initialize method
      *
@@ -45,6 +44,11 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        
+        $this->belongsTo('Roles', [
+            'foreignKey' => 'id_role',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -85,13 +89,11 @@ class UsersTable extends Table
 
         $validator
             ->boolean('deleted')
-            ->requirePresence('deleted', 'create')
-            ->notEmptyString('deleted');
+            ->allowEmptyString('deleted');
 
         $validator
             ->integer('modified_by')
-            ->requirePresence('modified_by', 'create')
-            ->notEmptyString('modified_by')
+            ->allowEmptyString('modified_by')
             ->add('modified_by', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
@@ -112,10 +114,13 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-        $rules->add($rules->isUnique(['modified_by']), ['errorField' => 'modified_by']);
+        $rules->add($rules->isUnique(['modified_by'], ['allowMultipleNulls' => true]), ['errorField' => 'modified_by']);
 
         return $rules;
     }
-
+    public function countUsersWithEmail($email)
+    {
+        return $this->findByEmail($email)->count();
+    }
 
 }

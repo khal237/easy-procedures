@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 /**
- * Users Controller
+ * Roles Controller
  *
- * @property \App\Model\Table\UsersTable $Users
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \App\Model\Table\RolesTable $Roles
+ * @method \App\Model\Entity\Role[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class UsersController extends AppController
+class RolesController extends AppController
 {
-
     /**
      * Index method
      *
@@ -19,25 +18,25 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
+        $roles = $this->paginate($this->Roles);
 
-        $this->set(compact('users'));
+        $this->set(compact('roles'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id User id.
+     * @param string|null $id Role id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
+        $role = $this->Roles->get($id, [
             'contain' => [],
         ]);
 
-        $this->set(compact('user'));
+        $this->set(compact('role'));
     }
 
     /**
@@ -47,62 +46,60 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEmptyEntity();
+        $role = $this->Roles->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $role = $this->Roles->patchEntity($role, $this->request->getData());
+            if ($this->Roles->save($role)) {
+                $this->Flash->success(__('The role has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+        $this->set(compact('role'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id User id.
+     * @param string|null $id Role id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $user = $this->Users->get($id, [
+        $role = $this->Roles->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $role = $this->Roles->patchEntity($role, $this->request->getData());
+            if ($this->Roles->save($role)) {
+                $this->Flash->success(__('The role has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
+        $this->set(compact('role'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id User id.
+     * @param string|null $id Role id.
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-   
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+        $role = $this->Roles->get($id);
+        if ($this->Roles->delete($role)) {
+            $this->Flash->success(__('The role has been deleted.'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The role could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
-
 }

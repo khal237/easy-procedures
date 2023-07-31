@@ -46,8 +46,8 @@
                                 <img src="<?= $this->Path->template_path() ?>images/icon/logo.png" alt="CoolAdmin">
                             </a>
                         </div>
-
-                        <?= $this->fetch('content') ?>
+                            <center><?= $this->Flash->render() ?></center>
+                            <?= $this->fetch('content') ?>
                     </div>
                 </div>
             </div>

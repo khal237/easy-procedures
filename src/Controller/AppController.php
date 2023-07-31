@@ -19,6 +19,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Authentication\AuthenticationServiceInterface;
+
+
 
 /**
  * Application Controller
@@ -39,6 +42,7 @@ class AppController extends Controller
      *
      * @return void
      */
+
     public function initialize(): void
     {
         parent::initialize();
@@ -46,15 +50,15 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-        $this->Authentication->allowUnauthenticated(['home', 'display','index','view','add','edit']);
-      
-      
+        $this->Authentication->allowUnauthenticated(['home', 'display']);
+
+
         /** $this->Auth->allow(['home', 'display', 'login']);
-       * $this->Auth->allow(['view', 'index']);
-       * $this->Auth->allow(['view', 'edit']);
-        *$this->Auth->allow(['view', 'add']);
-        *$this->Auth->allow(['view', 'view']);
-        */
+         * $this->Auth->allow(['view', 'index']);
+         * $this->Auth->allow(['view', 'edit']);
+         *$this->Auth->allow(['view', 'add']);
+         *$this->Auth->allow(['view', 'view']);
+         */
 
 
         /*
@@ -62,5 +66,47 @@ class AppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function getAuthenticatedUser()
+    {
+        $result = $this->Authentication->getResult();
+        if ($result->isValid()) {
+            return $result->getData();
+        }
+        return null;
+    }
+
+ 
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->getAuthenticationService();
+
+    }
+
+
+    protected function getAuthenticationService(): AuthenticationServiceInterface
+    {
+        $authentication = $this->request->getAttribute('authentication');
+        if (!$authentication instanceof AuthenticationServiceInterface) {
+            throw new \RuntimeException('Invalid authentication service');
+        }
+        return $authentication;
+    }
+    public function beforeRender(\Cake\Event\EventInterface $event)
+    {
+        
+        parent::beforeRender($event);
+        $user = $this->getAuthenticatedUser();
+       if ($user) {
+           $userstable = $this->fetchTable('Users');
+           $userData = $userstable->get($user->id);
+           $this->set('user', $userData);
+       } else {
+           $this->Flash->error('Vous devez être connecté pour accéder à cette page');
+           return $this->redirect(['controller' => 'Auth', 'action' => 'login']);
+       }
     }
 }
