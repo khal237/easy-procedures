@@ -83,14 +83,15 @@ p {
 }
 
 .table-responsive {
-    padding-right: 1px;
+    position: relative;
+    padding-right: 5px;
 }
 
 .card {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    
+
 }
 
 .btn {
@@ -99,9 +100,7 @@ p {
     border-radius: 3px;
 
 }
-.card-body{
-     margin-left: 80%;
-}
+
 
 /* ----- Typography ----- */
 body {
@@ -4536,6 +4535,7 @@ section {
 .table-data2 {
     border-collapse: collapse;
     overflow: visible;
+
 }
 
 .table-data2.table thead th {
@@ -4548,6 +4548,7 @@ section {
     padding: 15px 40px;
     padding-right: 10px;
     padding-bottom: 5px;
+
 }
 
 .table-data2.table thead th:first-child {
@@ -4680,8 +4681,11 @@ section {
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
-    background: #e5e5e5;
+    background:  #007bff;
     margin-right: 5px;
+}
+.table-data-feature .item :hover{
+    background:#007bff ;
 }
 
 .table-data-feature .item:last-child {
@@ -4690,7 +4694,7 @@ section {
 
 .table-data-feature .item i {
     font-size: 20px;
-    color: #808080;
+    color: #f8f3f3 ;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -14705,13 +14709,23 @@ section {
 .vue-lists ol {
     padding-left: 30px;
 }
-.card1{
-    margin-left: 490%;
-}
-.card-footer{
-   margin-top: 40px;
-   background-color: #63c76a;
-   border-radius: 10px;
-   text-align: center;
+
+
+
+.card-footer {
+    color: white;
+    margin-top: 40px;
+    background-color: #007bff;
+    border-radius: 10px;
+    text-align: center;
 }
 
+.btne link {
+    display: inline-flex;
+    margin-bottom: 5px;
+}
+
+.row {
+
+    margin-left: 40%;
+}

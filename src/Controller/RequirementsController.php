@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -22,9 +23,8 @@ class RequirementsController extends AppController
             'contain' => ['Requirementtypes'],
         ];
         $requirements = $this->paginate($this->Requirements);
-
+        
         $this->set(compact('requirements'));
-
     }
 
     /**
@@ -53,6 +53,7 @@ class RequirementsController extends AppController
         $requirement = $this->Requirements->newEmptyEntity();
         if ($this->request->is('post')) {
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
+            $requirement->deleted = 0;
             if ($this->Requirements->save($requirement)) {
                 $this->Flash->success(__('The requirement has been saved.'));
 

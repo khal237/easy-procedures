@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title><?= $this->request->getParam('controller') ?></title>
 
     <!-- Fontfaces CSS-->
     <link href="<?= $this->Path->template_path() ?>css/font-face.css" rel="stylesheet" media="all">
@@ -32,6 +32,7 @@
 
     <!-- Main CSS-->
     <link href="<?= $this->Path->template_path() ?>css/theme.css" rel="stylesheet" media="all">
+    <link href="<?= $this->Path->template_path() ?>css/custom theme.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -62,25 +63,17 @@
                             </a>
                         </li>
                         <?php if ($user->id_role == 2 || $user->id_role == 3) : ?>
-                            <li class="has-sub">
+                            <li>
                                 <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('check procedures') ?>
+                                    <i class="fas fa-copy"></i><?= __('Requirements') ?>
                                 </a>
                             </li>
-                            <?php if ($user->id_role == 3) : ?>
-                                <li>
-                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                        <i class="fas fa-copy"></i><?= __('Add new procedure') ?>
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="<?= $this->Url->build(['controller' => 'Requirementpropieties', 'action' => 'index']) ?>">
+                                    <i class="fas fa-copy"></i><?= __('Requirementproprieties') ?>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                        <i class="fas fa-copy"></i><?= __('add new users') ?>
-                                    </a>
-
-                                </li>
-                            <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($user->id_role == 1) : ?>
                             <li>
@@ -113,44 +106,39 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="has-sub">
-                            <a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'index']) ?>">
+                        <li <?= $this->request->getParam('controller') == 'Test' && $this->request->getParam('action') == 'index' ? 'class="active"' : '' ?>>
+                            <a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'index',]) ?>" class="active">
                                 <i class="fas fa-tachometer-alt"></i><?= __('Dashboad') ?>
                             </a>
                         </li>
                         <?php if ($user->id_role == 2 || $user->id_role == 3) : ?>
-                            <li class="has-sub">
-                                <a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'proceduresrequirements']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('check procedures') ?>
+                            <li <?= $this->request->getParam('controller') == 'Requirements' && $this->request->getParam('action') == 'index' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('requirements') ?>
                                 </a>
                             </li>
-                            <?php if ($user->id_role == 3) : ?>
-                                <li>
-                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                        <i class="fas fa-copy"></i><?= __('requirements') ?>
-                                    </a>
-                                </li>
+                            <li <?= $this->request->getParam('controller') == 'Procedures' && $this->request->getParam('action') == 'index' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Procedures', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('Procedures') ?>
+                                </a>
+                            </li>
 
-                                <li>
-                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                        <i class="fas fa-copy"></i><?= __('add new users') ?>
-                                    </a>
+                        <?php endif; ?>
+                        <?php if ($user->id_role == 1) : ?>
+                            <li>
+                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                                    <i class="fas fa-copy"></i><?= __('follow procedure') ?>
+                                </a>
 
-                                </li><?php endif; ?><?php endif; ?>
-                                <?php if ($user->id_role == 1) : ?>
-                                    <li>
-                                        <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                            <i class="fas fa-copy"></i><?= __('follow procedure') ?>
-                                        </a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                                    <i class="fas fa-copy"></i><?= __('consult a procedure') ?>
+                                </a>
 
-                                    </li>
-                                    <li>
-                                        <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                            <i class="fas fa-copy"></i><?= __('consult a procedure') ?>
-                                        </a>
-
-                                    </li><?php endif; ?>
+                            </li><?php endif; ?>
                     </ul>
+
                 </nav>
             </div>
         </aside>
@@ -166,66 +154,42 @@
                             <form class="form-header" action="" method="POST">
 
                             </form>
-                            <div class="header-button">
-                                <div class="noti-wrap">
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">1</span>
-                                        <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
-                                                <p>You have 1 Notifications</p>
-                                            </div>
-
-                                            <div class="notifi__item">
-                                                <div class="bg-c3 img-cir img-40">
-                                                    <i class="zmdi zmdi-file-text"></i>
-                                                </div>
-                                                <div class="content">
-                                                    <p>You got a new file</p>
-                                                    <span class="date">April 12, 2018 06:50</span>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                            <div class="account-wrap">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="image">
+                                        <img src="<?= $this->Path->template_path() ?>images/icon/avatar-01.png" alt="khalil ndam" />
                                     </div>
-                                </div>
-                                <div class="account-wrap">
-                                    <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="<?= $this->Path->template_path() ?>images/icon/avatar-01.jpg" alt="khalil ndam" />
-                                        </div>
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#"> <?php echo $user->name; ?></a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="<?= $this->Path->template_path() ?>images/icon/avatar-01.jpg" alt="khalil ndam" />
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#"> <?php echo $user->name; ?></a>
-                                                    </h5>
-                                                    <span class="email"> <?php echo $user->email; ?></span>
-                                                </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#"> <?php echo $user->name; ?></a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="<?= $this->Path->template_path() ?>images/icon/avatar-01.png" alt="khalil ndam" />
+                                                </a>
                                             </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#"> <?php echo $user->name; ?></a>
+                                                </h5>
+                                                <span class="email"> <?php echo $user->email; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
 
-                                            </div>
-                                            <div class="account-dropdown__footer">
-                                                <a href="<?= $this->Url->build(['controller' => 'Auth', 'action' => 'logout']) ?>">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
-                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="<?= $this->Url->build(['controller' => 'Auth', 'action' => 'logout']) ?>">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -236,36 +200,38 @@
             </header>
             <!-- HEADER DESKTOP-->
             <div class="main-content">
-                <?= $this->Flash->render();?>
-                <?= $this->fetch('content') ?>
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <?= $this->Flash->render() ?>
+                        <?= $this->fetch('content') ?>
+                    </div>
+                </div>
             </div>
         </div>
 
-    </div>
+        <!-- Jquery JS-->
+        <script src="<?= $this->Path->template_path() ?>vendor/jquery-3.2.1.min.js"></script>
+        <!-- Bootstrap JS-->
+        <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <!-- Vendor JS       -->
+        <script src="<?= $this->Path->template_path() ?>vendor/slick/slick.min.js">
+        </script>
+        <script src="<?= $this->Path->template_path() ?>vendor/wow/wow.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/animsition/animsition.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+        </script>
+        <script src="<?= $this->Path->template_path() ?>vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/counter-up/jquery.counterup.min.js">
+        </script>
+        <script src="<?= $this->Path->template_path() ?>vendor/circle-progress/circle-progress.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/chartjs/Chart.bundle.min.js"></script>
+        <script src="<?= $this->Path->template_path() ?>vendor/select2/select2.min.js">
+        </script>
 
-    <!-- Jquery JS-->
-    <script src="<?= $this->Path->template_path() ?>vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="<?= $this->Path->template_path() ?>vendor/slick/slick.min.js">
-    </script>
-    <script src="<?= $this->Path->template_path() ?>vendor/wow/wow.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/animsition/animsition.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="<?= $this->Path->template_path() ?>vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="<?= $this->Path->template_path() ?>vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="<?= $this->Path->template_path() ?>vendor/select2/select2.min.js">
-    </script>
-
-    <!-- Main JS-->
-    <script src="<?= $this->Path->template_path() ?>js/main.js"></script>
+        <!-- Main JS-->
+        <script src="<?= $this->Path->template_path() ?>js/main.js"></script>
 
 </body>
 

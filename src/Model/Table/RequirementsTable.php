@@ -76,10 +76,15 @@ class RequirementsTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->scalar('status')
-            ->maxLength('status', 50)
-            ->requirePresence('status', 'create')
-            ->notEmptyString('status');
+            ->scalar('description')
+            ->maxLength('description', 250)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
+
+        $validator
+            ->scalar('example')
+            ->maxLength('example', 255)
+            ->allowEmptyString('example');
 
         $validator
             ->boolean('deleted')

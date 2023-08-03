@@ -21,9 +21,10 @@ class RequirementsFixture extends TestFixture
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
-                'status' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-07-31 13:43:22',
-                'modified' => '2023-07-31 13:43:22',
+                'description' => 'Lorem ipsum dolor sit amet',
+                'example' => 'Lorem ipsum dolor sit amet',
+                'created' => '2023-08-02 08:20:52',
+                'modified' => '2023-08-02 08:20:52',
                 'deleted' => 1,
                 'modified_by' => 1,
                 'requirementtype_id' => 1,

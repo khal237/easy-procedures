@@ -10,7 +10,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
- * @property string $status
+ * @property string $description
+ * @property string|null $example
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property bool|null $deleted
@@ -34,7 +35,8 @@ class Requirement extends Entity
      */
     protected $_accessible = [
         'name' => true,
-        'status' => true,
+        'description' => true,
+        'example' => true,
         'created' => true,
         'modified' => true,
         'deleted' => true,

@@ -27,5 +27,6 @@ class PathHelper extends Helper
     public function template_path(){
         return $this->base_url() . 'template/';
     } 
+    
 
 }

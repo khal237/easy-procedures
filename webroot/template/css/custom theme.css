@@ -1,0 +1,57 @@
+.message-success {
+    background-color: rgb(183, 255, 183);
+    color: rgb(5, 219, 5);
+    text-align: center;
+    width: 350px;
+    height: 60px;
+    margin-left: 370px;
+    border-radius: 5px;
+}
+
+.message-error {
+    background-color: rgb(252, 141, 141);
+    color: rgb(245, 41, 41);
+    text-align: center;
+    width: 350px;
+    height: 60px;
+    margin-left: 370px;
+    border-radius: 5px;
+}
+
+.message-warning {
+    background-color: rgb(255, 202, 104);
+    color: rgb(233, 169, 50);
+    text-align: center;
+    width: 350px;
+    height: 60px;
+    margin-left: 370px;
+    border-radius: 5px;
+
+}
+
+td {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body {
+    margin-left: 87%;
+    margin-top: 10px;
+}
+
+tr {
+    margin-bottom: 50px;
+}
+.float-right {
+    float: right ;
+    background-color: #007bff;
+    color: white;
+    border-radius: 3px;
+    font-size: 20px;
+    transition: 1s;
+}
+.float-right:hover{
+    font-size: 23px;
+}

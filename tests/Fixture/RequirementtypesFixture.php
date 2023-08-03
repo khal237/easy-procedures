@@ -23,8 +23,8 @@ class RequirementtypesFixture extends TestFixture
                 'type' => 'Lorem ipsum dolor sit amet',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'Description' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-07-31 10:38:18',
-                'modified' => '2023-07-31 10:38:18',
+                'created' => '2023-08-02 05:50:41',
+                'modified' => '2023-08-02 05:50:41',
                 'deleted' => 1,
             ],
         ];

@@ -80,8 +80,7 @@ class RequirementtypesTable extends Table
 
         $validator
             ->boolean('deleted')
-            ->requirePresence('deleted', 'create')
-            ->notEmptyString('deleted');
+            ->allowEmptyString('deleted');
 
         return $validator;
     }
