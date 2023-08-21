@@ -44,7 +44,7 @@ class ProceduresTable extends Table
 
         $this->setTable('procedures');
         $this->setDisplayField('name');
-        $this->setPrimaryKey('Id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -66,7 +66,7 @@ class ProceduresTable extends Table
     {
         $validator
             ->scalar('name')
-            ->maxLength('name', 250)
+            ->maxLength('name', 40)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
@@ -77,14 +77,15 @@ class ProceduresTable extends Table
             ->notEmptyString('type');
 
         $validator
-            ->scalar('status')
-            ->maxLength('status', 50)
-            ->requirePresence('status', 'create')
-            ->notEmptyString('status');
+            ->scalar('description')
+            ->maxLength('description', 50)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         $validator
             ->boolean('deleted')
-            ->allowEmptyString('deleted');
+            ->requirePresence('deleted', 'create')
+            ->notEmptyString('deleted');
 
         $validator
             ->integer('modified_by')

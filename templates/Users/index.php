@@ -4,57 +4,45 @@
  * @var iterable<\App\Model\Entity\User> $users
  */
 ?>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'test', 'action' => 'index']) ?>">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">admin list</li>
+    </ol>
+</nav>
 <div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
+    <?= $this->Html->link(__('<i class="zmdi zmdi-plus"></i>New Admin'), ['action' => 'add'], ['class' => 'button float-right', 'escape'=>false]) ?>
+    <h3 class="title-5 m-b-35"><?= __('Users Administrator') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table table-borderless table-data3">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('surname') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('phonenumber') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th><?= $this->Paginator->sort('deleted') ?></th>
-                    <th><?= $this->Paginator->sort('modified_by') ?></th>
-                    <th><?= $this->Paginator->sort('id_role') ?></th>
+                    <th><?= ('name') ?></th>
+                    <th><?= ('surname') ?></th>
+                    <th><?= ('email') ?></th>
+                    <th><?= ('phonenumber') ?></th>
+                    <th><?= ('created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= $this->Number->format($user->id) ?></td>
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->surname) ?></td>
                     <td><?= h($user->email) ?></td>
                     <td><?= $this->Number->format($user->phonenumber) ?></td>
                     <td><?= h($user->created) ?></td>
-                    <td><?= h($user->modified) ?></td>
-                    <td><?= h($user->deleted) ?></td>
-                    <td><?= $this->Number->format($user->modified_by) ?></td>
-                    <td><?= $this->Number->format($user->id_role) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                    <div class="table-data-feature">
+                        <?= $this->Html->link(__('<i class="zmdi zmdi-edit"></i>'), ['action' => 'edit', $user->id], ['class' => 'item', 'escape' => false]) ?>
+                        <?= $this->Form->postLink(__('<i class="zmdi zmdi-delete"></i>'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'item', 'escape' => false]) ?>
+                    </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

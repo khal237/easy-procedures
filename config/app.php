@@ -229,21 +229,23 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
+            'className' => 'Cake\Mailer\Transport\SmtpTransport',
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
              */
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
             'timeout' => 30,
+           
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
-            //'username' => null,
-            //'password' => null,
+            'username' => 'khalilndam4@gmail.com',
+            'password' => 'ipidmbktrczopiap',
             'client' => null,
-            'tls' => false,
+            'tls' => true,
+            'crypto'=>'tls',
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],

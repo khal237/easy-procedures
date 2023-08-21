@@ -6,15 +6,16 @@
  */
 ?>
 
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb"  >
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller'=>'Test', 'action'=>'index'])?>">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Requirements</li>
-  </ol>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'index']) ?>">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Requirements</li>
+    </ol>
 </nav>
+<?php if ($user->id_role == 3) : ?>
 <div class="requirements index content">
-        <?= $this->Html->link('<i class="zmdi zmdi-plus"></i> Add New', ['action' => 'add'], ['class' => 'button float-right', 'escape' => false]) ?>
-        <h3 class="title-5 m-b-35"><?= __('Requirements') ?></h3>
+    <?= $this->Html->link('<i class="zmdi zmdi-plus"></i> Add New', ['action' => 'add'], ['class' => 'button float-right', 'escape' => false]) ?>
+    <h3 class="title-5 m-b-35"><?= __('Requirements') ?></h3>
     <div class="table-responsive m-b-40">
         <table class="table table-borderless table-data3">
             <thead>
@@ -49,4 +50,33 @@
         </table>
     </div>
 </div>
-</div>
+<?php endif;?>
+<?php if ($user->id_role == 1) : ?>
+    
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="column-responsive column-80">
+                        <div class="requirements form content">
+                            <div class="card-header">
+                                <legend><?= __('Add Requirement') ?></legend>
+                            </div>
+                            <div class="card-body card-block">
+                                <?= $this->Form->create() ?>
+
+                                <fieldset>
+                                <?php foreach ($requirements as $requirement) : ?>
+                                    <?= $this->Form->control($requirement->name, ['type'=> '' , 'placeholder'=>$requirement->description ,'class' => 'form-control-success form-control']); ?>
+                                    <?php endforeach; ?>
+                                </fieldset>
+                                <div class="card-footer">
+                                    <?= $this->Form->button(__('Submit', ['class' => 'btn btn-primary btn-sm'])) ?>
+                                </div>
+                                <?= $this->Form->end() ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+<?php endif; ?>

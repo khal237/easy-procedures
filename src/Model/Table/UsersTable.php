@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property \App\Model\Table\RequestsTable&\Cake\ORM\Association\HasMany $Requests
+ *
  * @method \App\Model\Entity\User newEmptyEntity()
  * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -44,11 +46,12 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        
-        $this->belongsTo('Roles', [
-            'foreignKey' => 'id_role',
-            'joinType' => 'INNER',
+
+        $this->hasMany('Requests', [
+            'foreignKey' => 'user_id',
         ]);
+        
+         
     }
 
     /**
@@ -100,6 +103,15 @@ class UsersTable extends Table
             ->integer('id_role')
             ->requirePresence('id_role', 'create')
             ->notEmptyString('id_role');
+
+        $validator
+            ->scalar('token')
+            ->maxLength('token', 100)
+            ->allowEmptyString('token');
+
+        $validator
+            ->integer('Verifications')
+            ->allowEmptyString('Verifications');
 
         return $validator;
     }

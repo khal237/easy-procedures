@@ -122,19 +122,22 @@
                                     <i class="fas fa-folder"></i><?= __('Procedures') ?>
                                 </a>
                             </li>
+                            <?php if ($user->id_role == 3) : ?>
+                                <li <?= $this->request->getParam('controller') == 'Users' && $this->request->getParam('action') == 'index' ? 'class="active"' : '' ?>>
+                                    <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>" class="active">
+                                        <i class="fas fa-user"></i><?= __('user') ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
 
                         <?php endif; ?>
                         <?php if ($user->id_role == 1) : ?>
                             <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('follow procedure') ?>
+                                <a href="<?= $this->Url->build(['controller' => 'Procedures', 'action' => 'add']) ?>">
+                                    <i class="fas fa-copy"></i><?= __('Requests') ?>
                                 </a>
 
                             </li>
-                            <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('consult a procedure') ?>
-                                </a>
 
                             </li><?php endif; ?>
                     </ul>
@@ -151,9 +154,14 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <form class="form-header" action="" method="POST">
-
-                            </form>
+                        <?= $this->Form->create(null, ['class' => 'form-header']) ?>
+                            <?php if ($this->request->getParam('controller') != 'Test'): ?> 
+                                <?= $this->Form->input('search', ['class' => 'au-input au-input--xl', 'placeholder' => 'Search', $this->request->getParam('controller')]) ?>
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                                <?php endif; ?>
+                                <?= $this->Form->end() ?>
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
@@ -178,7 +186,7 @@
                                         </div>
                                         <div class="account-dropdown__body">
                                             <div class="account-dropdown__item">
-                                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                                                <a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'account']) ?>">
                                                     <i class="zmdi zmdi-account"></i>Account</a>
                                             </div>
                                             <div class="account-dropdown__item">

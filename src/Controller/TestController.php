@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\ORM\TableRegistry;
 /**
  * Test Controller
  *
@@ -30,16 +30,14 @@ class TestController extends AppController
             return $this->redirect(['controller' => 'Auth', 'action' => 'login']);
         }
     }
-
-    public function requirements()
+    public function account()
     {
-        $this->index();
-
-
-    }
-    public function proceduresrequirements(){
-        $this->index();
-
        
+        $userId = $this->Authentication->getIdentity()->getIdentifier();
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $user = $usersTable->get($userId);
+        $this->set('user', $user);
     }
+    
 }
+

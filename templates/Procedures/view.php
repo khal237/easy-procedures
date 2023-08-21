@@ -14,7 +14,7 @@
 </nav>
 <div class="row">
     <div class="column-responsive column-80">
-        <div class="requirements view content">
+        <div class="procedures view content">
             <h3><?= h($procedure->name) ?></h3>
             <table class="table data-table2">
                 <tr>
@@ -26,13 +26,14 @@
                     <td><?= h($procedure->type) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= h($procedure->status) ?></td>
+                    <th><?= __('Description') ?></th>
+                    <td><?= h($procedure->description) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
                     <td><?= h($procedure->created) ?></td>
                 </tr>
+
             </table>
             <aside class="column">
                 <div class="table-data-feature">

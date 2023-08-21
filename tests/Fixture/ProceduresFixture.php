@@ -19,12 +19,12 @@ class ProceduresFixture extends TestFixture
     {
         $this->records = [
             [
-                'Id' => 1,
+                'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'type' => 'Lorem ipsum dolor sit amet',
-                'status' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-08-03 11:59:23',
-                'modified' => '2023-08-03 11:59:23',
+                'description' => 'Lorem ipsum dolor sit amet',
+                'created' => '2023-08-07 07:25:48',
+                'modified' => '2023-08-07 07:25:48',
                 'deleted' => 1,
                 'modified_by' => 1,
             ],

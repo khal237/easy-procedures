@@ -25,6 +25,7 @@ class UsersTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Users',
+        'app.Requests',
     ];
 
     /**
@@ -52,6 +53,17 @@ class UsersTableTest extends TestCase
     }
 
     /**
+     * Test roles method
+     *
+     * @return void
+     * @uses \App\Model\Table\UsersTable::roles()
+     */
+    public function testRoles(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
      * Test validationDefault method
      *
      * @return void
@@ -69,6 +81,17 @@ class UsersTableTest extends TestCase
      * @uses \App\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test countUsersWithEmail method
+     *
+     * @return void
+     * @uses \App\Model\Table\UsersTable::countUsersWithEmail()
+     */
+    public function testCountUsersWithEmail(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

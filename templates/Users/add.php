@@ -1,34 +1,44 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
 ?>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'test', 'action' => 'index']) ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin list</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add</li>
+    </ol>
+</nav>
+
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
                 <legend><?= __('Add User') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('surname');
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('phonenumber');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('deleted');
-                    echo $this->Form->control('modified_by');
-                    echo $this->Form->control('id_role');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+            </div>
+            <div class="column-responsive column-80">
+                <div class="users form content">
+                    <div class="card-body card-block">
+                        <?= $this->Form->create() ?>
+                        <fieldset>
+                            <?php
+                            echo $this->Form->control('name', ['class' => 'form-control-success form-control']);
+                            echo $this->Form->control('surname', ['class' => 'form-control-success form-control']);
+                            echo $this->Form->control('email', ['class' => 'form-control-success form-control']);
+                            echo $this->Form->control('phonenumber', ['class' => 'form-control-success form-control']);
+                            echo $this->Form->control('password', ['class' => 'form-control-success form-control']);
+                            ?>
+                        </fieldset>
+                        <div class="card-footer">
+                            <?= $this->Form->button(__('Submit', ['class' => 'btn btn-primary btn-sm'])) ?>
+                        </div>
+                        <?= $this->Form->end() ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

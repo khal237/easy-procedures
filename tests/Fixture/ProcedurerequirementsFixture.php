@@ -21,8 +21,8 @@ class ProcedurerequirementsFixture extends TestFixture
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-08-03 13:50:48',
-                'modified' => '2023-08-03 13:50:48',
+                'created' => '2023-08-07 06:11:15',
+                'modified' => '2023-08-07 06:11:15',
                 'deleted' => 1,
                 'modified_by' => 1,
                 'procedure_id' => 1,

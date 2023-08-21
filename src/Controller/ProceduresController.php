@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -47,11 +48,8 @@ class ProceduresController extends AppController
     public function add()
     {
         $procedure = $this->Procedures->newEmptyEntity();
-
-       
         if ($this->request->is('post')) {
             $procedure = $this->Procedures->patchEntity($procedure, $this->request->getData());
-
             $procedure->deleted = 0;
             if ($this->Procedures->save($procedure)) {
                 $this->Flash->success(__('The procedure has been saved.'));
@@ -106,4 +104,6 @@ class ProceduresController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+   
 }

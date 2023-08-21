@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
+use App\Controller\RequestsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\UsersController Test Case
+ * App\Controller\RequestsController Test Case
  *
- * @uses \App\Controller\UsersController
+ * @uses \App\Controller\RequestsController
  */
-class UsersControllerTest extends TestCase
+class RequestsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,15 +22,17 @@ class UsersControllerTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Users',
         'app.Requests',
+        'app.Users',
+        'app.Procedures',
+        'app.Requestrequirements',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\UsersController::index()
+     * @uses \App\Controller\RequestsController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +43,7 @@ class UsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\UsersController::view()
+     * @uses \App\Controller\RequestsController::view()
      */
     public function testView(): void
     {
@@ -52,7 +54,7 @@ class UsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\UsersController::add()
+     * @uses \App\Controller\RequestsController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +65,7 @@ class UsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\UsersController::edit()
+     * @uses \App\Controller\RequestsController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +76,7 @@ class UsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\UsersController::delete()
+     * @uses \App\Controller\RequestsController::delete()
      */
     public function testDelete(): void
     {

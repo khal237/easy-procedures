@@ -8,13 +8,13 @@ use Cake\ORM\Entity;
 /**
  * Procedure Entity
  *
- * @property int $Id
+ * @property int $id
  * @property string $name
  * @property string $type
- * @property string $status
+ * @property string $description
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
- * @property bool|null $deleted
+ * @property bool $deleted
  * @property int|null $modified_by
  *
  * @property \App\Model\Entity\Procedurerequirement[] $procedurerequirements
@@ -34,7 +34,7 @@ class Procedure extends Entity
     protected $_accessible = [
         'name' => true,
         'type' => true,
-        'status' => true,
+        'description' => true,
         'created' => true,
         'modified' => true,
         'deleted' => true,

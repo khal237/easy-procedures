@@ -327,6 +327,7 @@ section {
 .main-content {
     padding-top: 116px;
     min-height: 100vh;
+    margin-top: -40px;
 }
 
 @media (max-width: 991px) {
@@ -4681,11 +4682,12 @@ section {
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
-    background:  #007bff;
+    background: #007bff;
     margin-right: 5px;
 }
-.table-data-feature .item :hover{
-    background:#007bff ;
+
+.table-data-feature .item :hover {
+    background: #007bff;
 }
 
 .table-data-feature .item:last-child {
@@ -4694,7 +4696,7 @@ section {
 
 .table-data-feature .item i {
     font-size: 20px;
-    color: #f8f3f3 ;
+    color: #f8f3f3;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -14719,13 +14721,10 @@ section {
     border-radius: 10px;
     text-align: center;
 }
-
 .btne link {
     display: inline-flex;
     margin-bottom: 5px;
 }
 
-.row {
+/*zone profil*/
 
-    margin-left: 40%;
-}

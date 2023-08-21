@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\ORM\Entity;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 
 /**
  * User Entity
@@ -17,9 +17,13 @@ use Cake\ORM\Entity;
  * @property string $password
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
- * @property bool $deleted
- * @property int $modified_by
+ * @property bool|null $deleted
+ * @property int|null $modified_by
  * @property int $id_role
+ * @property string|null $token
+ * @property int|null $Verifications
+ *
+ * @property \App\Model\Entity\Request[] $requests
  */
 class User extends Entity
 {
@@ -32,21 +36,20 @@ class User extends Entity
      *
      * @var array<string, bool>
      */
-    public function getRoleId()
-    {
-        return $this->id_role ?: 1;
-    }
     protected $_accessible = [
         'name' => true,
         'surname' => true,
         'email' => true,
         'phonenumber' => true,
         'password' => true,
-        'created' => false,
-        'modified' => false,
-        'deleted' => false,
-        'modified_by' => false,
-        'id_role' => false,
+        'created' => true,
+        'modified' => true,
+        'deleted' => true,
+        'modified_by' => true,
+        'id_role' => true,
+        'token' => true,
+        'Verifications' => true,
+        'requests' => true,
     ];
 
     /**
@@ -54,12 +57,12 @@ class User extends Entity
      *
      * @var array<string>
      */
-
-
     protected $_hidden = [
         'password',
+        'token',
     ];
-    
+   
+
     protected function _setPassword(string $password): ?string
     {
         if (strlen($password) > 0) {
@@ -68,5 +71,4 @@ class User extends Entity
         }
 
     }
-
 }

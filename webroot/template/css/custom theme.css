@@ -1,16 +1,15 @@
 .message-success {
-    background-color: rgb(183, 255, 183);
-    color: rgb(5, 219, 5);
+    color: rgba(5, 223, 5, 0.616);
     text-align: center;
     width: 350px;
     height: 60px;
     margin-left: 370px;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .message-error {
-    background-color: rgb(252, 141, 141);
-    color: rgb(245, 41, 41);
+    color: rgba(236, 6, 6, 0.747);
     text-align: center;
     width: 350px;
     height: 60px;
@@ -19,7 +18,6 @@
 }
 
 .message-warning {
-    background-color: rgb(255, 202, 104);
     color: rgb(233, 169, 50);
     text-align: center;
     width: 350px;
@@ -28,17 +26,10 @@
     border-radius: 5px;
 
 }
-
-td {
-    max-width: 200px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.card-body {
-    margin-left: 87%;
-    margin-top: 10px;
+@media (max-width: 767px){
+    .message-success {
+        width: 100px;
+    }
 }
 
 tr {
@@ -46,12 +37,89 @@ tr {
 }
 .float-right {
     float: right ;
-    background-color: #007bff;
-    color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     border-radius: 3px;
     font-size: 20px;
     transition: 1s;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: bold;
+    
+
 }
 .float-right:hover{
-    font-size: 23px;
+    font-size: 21px;
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc
+}
+.cole{
+    position: relative;
+    right: 10px;
+}
+.messages{
+    position: relative;
+    max-width: 150px;
+    height: 40px;
+    right: -20px;
+    top: 100px;
+}
+
+/*profil*/
+.containers {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.p {
+    margin-bottom: 10px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.info-value {
+    color: #777;
+}
+
+.profile-image {
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+.buttons {
+    display: flex;
+    margin-left: 45%;
+    
+}
+
+.change-password-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.change-password-links {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #666;
+    border-radius: 5px;
+    margin-left: 7px;
 }
