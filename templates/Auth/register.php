@@ -1,23 +1,23 @@
 <div class="login-form">
     <?= $this->form->create($user, ['controller' => 'Auth', 'action' => 'register']); ?>
     <div class="form-group">
-        <?= $this->form->control('name', array('type' => 'text', 'placeholder' => 'name', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('name', array('type' => 'text', 'placeholder' => 'name', 'class' => 'au-input au-input--full','label'=>'name*')) ?>
     </div>
     <div class="form-group">
 
-        <?= $this->form->control('surname', array('type' => 'text', 'placeholder' => 'surname', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('surname', array('type' => 'text', 'placeholder' => 'surname', 'class' => 'au-input au-input--full','label'=>'surname*')) ?>
     </div>
     <div class="form-group">
-        <?= $this->form->control('email', array('type' => 'email', 'placeholder' => 'email', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('email', array('type' => 'email', 'placeholder' => 'email', 'class' => 'au-input au-input--full','label'=>'email*')) ?>
     </div>
     <div class="form-group">
-        <?= $this->form->control('phonenumber', array('type' => 'text', 'placeholder' => 'phonenumber', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('phonenumber', array('type' => 'text', 'placeholder' => 'phonenumber', 'class' => 'au-input au-input--full','label'=>'phonenumber*')) ?>
     </div>
     <div class="form-group">
-        <?= $this->form->control('password', array('type' => 'password', 'placeholder' => 'password', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('password', array('type' => 'password', 'placeholder' => 'password', 'class' => 'au-input au-input--full','label'=>'password*')) ?>
     </div>
     <div class="form-group">
-        <?= $this->form->control('confirm-password', array('type' => 'password', 'placeholder' => 'confirm-password', 'class' => 'au-input au-input--full')) ?>
+        <?= $this->form->control('confirm-password', array('type' => 'password', 'placeholder' => 'confirm-password', 'class' => 'au-input au-input--full','label'=>'confirm-password*')) ?>
     </div>
     <div class="login-checkbox">
         <label>

@@ -32,7 +32,7 @@
                             echo $this->Form->control('password', ['class' => 'form-control-success form-control']);
                             ?>
                         </fieldset>
-                        <div class="card-footer">
+                        <div class="card-footers">
                             <?= $this->Form->button(__('Submit', ['class' => 'btn btn-primary btn-sm'])) ?>
                         </div>
                         <?= $this->Form->end() ?>

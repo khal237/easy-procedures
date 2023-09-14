@@ -1,65 +1,10 @@
-.message-success {
-    color: rgba(5, 223, 5, 0.616);
-    text-align: center;
-    width: 350px;
-    height: 60px;
-    margin-left: 370px;
-    border-radius: 5px;
-    margin-top: 10px;
-}
 
-.message-error {
-    color: rgba(236, 6, 6, 0.747);
-    text-align: center;
-    width: 350px;
-    height: 60px;
-    margin-left: 370px;
-    border-radius: 5px;
-}
-
-.message-warning {
-    color: rgb(233, 169, 50);
-    text-align: center;
-    width: 350px;
-    height: 60px;
-    margin-left: 370px;
-    border-radius: 5px;
-
-}
-@media (max-width: 767px){
-    .message-success {
-        width: 100px;
-    }
-}
-
-tr {
-    margin-bottom: 50px;
-}
-.float-right {
-    float: right ;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    font-size: 20px;
-    transition: 1s;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    font-weight: bold;
-    
-
-}
-.float-right:hover{
-    font-size: 21px;
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc
-}
-.cole{
+.cole {
     position: relative;
     right: 10px;
 }
-.messages{
+
+.messages {
     position: relative;
     max-width: 150px;
     height: 40px;
@@ -104,7 +49,7 @@ tr {
 .buttons {
     display: flex;
     margin-left: 45%;
-    
+
 }
 
 .change-password-link {

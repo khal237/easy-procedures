@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -58,6 +59,18 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
+        $builder->connect(
+            '/requirements/properties/{id}',
+            ['controller' => 'Requirementproperties', 'action' => 'index'],
+            ['id' => '\d+', 'pass' => ['id']]
+        );
+
+
+        $builder->connect(
+            '/procedures/properties/{id}',
+            ['controller' => 'Procedurerequirements', 'action' => 'index'],
+            ['id' => '\d+', 'pass' => ['id']]
+        );
         /*
          * Connect catchall routes for all controllers.
          *

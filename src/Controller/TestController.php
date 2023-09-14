@@ -34,7 +34,7 @@ class TestController extends AppController
     {
        
         $userId = $this->Authentication->getIdentity()->getIdentifier();
-        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $usersTable = $this->fetchTable('Users');
         $user = $usersTable->get($userId);
         $this->set('user', $user);
     }

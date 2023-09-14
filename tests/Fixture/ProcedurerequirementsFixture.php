@@ -20,10 +20,8 @@ class ProcedurerequirementsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'name' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-08-07 06:11:15',
-                'modified' => '2023-08-07 06:11:15',
-                'deleted' => 1,
+                'created' => '2023-08-25 14:30:26',
+                'modified' => '2023-08-25 14:30:26',
                 'modified_by' => 1,
                 'procedure_id' => 1,
                 'requirement_id' => 1,

@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title><?= $this->request->getParam('action') ?></title>
 
     <!-- Fontfaces CSS-->
     <link href="<?= $this->Path->template_path() ?>css/font-face.css" rel="stylesheet" media="all">

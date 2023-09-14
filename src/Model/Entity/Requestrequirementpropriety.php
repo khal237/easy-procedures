@@ -10,7 +10,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $value
- * @property string $name
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property bool $deleted
@@ -33,7 +32,6 @@ class Requestrequirementpropriety extends Entity
      */
     protected $_accessible = [
         'value' => true,
-        'name' => true,
         'created' => true,
         'modified' => true,
         'deleted' => true,

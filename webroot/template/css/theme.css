@@ -16,7 +16,7 @@ Primary use:	Open Source
         + Section Layouts / section .name-section
         ...
 	+ Footer / footer
-
+H
 -------------------------------------------------------------------*/
 /*------------------------------------------------------------------
 # [Color codes]
@@ -38,8 +38,9 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*-----------------------------------------------------*/
 /*-----------------------------------------------------*/
 /*                   GENERIC                           */
-/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/   
 /* ----- Normalize ----- */
+
 * {
     margin: 0;
     padding: 0;
@@ -279,7 +280,7 @@ section {
 
 /*Page Objects*/
 .page-wrapper {
-    overflow: hidden;
+    overflow: auto;
     background: #e5e5e5;
     padding-bottom: 8vh;
 
@@ -14714,10 +14715,9 @@ section {
 
 
 
-.card-footer {
+.card-footers {
     color: white;
     margin-top: 40px;
-    background-color: #007bff;
     border-radius: 10px;
     text-align: center;
 }
@@ -14726,5 +14726,5 @@ section {
     margin-bottom: 5px;
 }
 
-/*zone profil*/
+
 

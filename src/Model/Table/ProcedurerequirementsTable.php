@@ -56,7 +56,7 @@ class ProcedurerequirementsTable extends Table
         $this->belongsTo('Requirements', [
             'foreignKey' => 'requirement_id',
             'joinType' => 'INNER',
-        ]);
+        ])->setConditions(['Requirements.deleted' => false]);
         $this->hasMany('Requestrequirements', [
             'foreignKey' => 'procedurerequirement_id',
         ]);
@@ -70,16 +70,6 @@ class ProcedurerequirementsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
-
-        $validator
-            ->boolean('deleted')
-            ->allowEmptyString('deleted');
-
         $validator
             ->integer('modified_by')
             ->allowEmptyString('modified_by');

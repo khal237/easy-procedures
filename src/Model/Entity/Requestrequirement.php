@@ -34,14 +34,14 @@ class Requestrequirement extends Entity
      */
     protected $_accessible = [
         'value' => true,
-        'created' => true,
-        'modified' => true,
+        'created' => false,
+        'modified' => false,
         'status' => true,
         'raison' => true,
-        'procedurerequirement_id' => true,
-        'request_id' => true,
-        'procedurerequirement' => true,
-        'request' => true,
-        'requestrequirementproprieties' => true,
+        'procedurerequirement_id' => false,
+        'request_id' => false,
+        'procedurerequirement' => false,
+        'request' => false,
+        'requestrequirementproprieties' => false,
     ];
 }

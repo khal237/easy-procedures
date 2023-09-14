@@ -21,29 +21,13 @@ class UsersController extends AppController
     public function index()
     {
 
-
+       
         $usertable = $this->fetchtable('Users');
         $users = $usertable->find()
-            ->where(['id_role' => 2])
+            ->where(['id_role' => 2,'deleted'=>false])
             ->all();
 
         $this->set(compact('users'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => ['Requests'],
-        ]);
-
-        $this->set(compact('user'));
     }
 
     /**
@@ -64,56 +48,37 @@ class UsersController extends AppController
                 $this->Flash->error('This email is already taken.');
                 return;
             } else {
-                    $user->id_role = 2;
-                    if ($userstable->save($user)) {
-                        $this->Flash->success('the user has been saved');
+                $user->id_role = 2;
+                $user->deleted = 0;
+                if ($userstable->save($user)) {
+                    $this->Flash->success('the user has been saved');
 
-                        return $this->redirect(['action' => 'index']);
-                    }
-
-                    $this->Flash->error('Please try again.');
+                    return $this->redirect(['action' => 'index']);
                 }
-            }
-        
-        $this->set(compact('user'));
-    }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->error('Please try again.');
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
+
         $this->set(compact('user'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
+
+    public function delete($id)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
+
+        $user = $this->Users->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false],
+        ])->first();
+        if (empty($user)) {
+            $this->Flash->error("user not found");
+            $this->redirect($this->referer());
+        }
+
+        $user->set('deleted', true);
+
+        if ($this->Users->save($user)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
@@ -121,7 +86,4 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-
-   
 }

@@ -71,26 +71,17 @@ class RequestsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
-
-        $validator
-            ->scalar('type')
-            ->maxLength('type', 50)
-            ->requirePresence('type', 'create')
-            ->notEmptyString('type');
+            ->scalar('status')
+            ->maxLength('status', 20)
+            ->notEmptyString('status');
 
         $validator
             ->boolean('deleted')
-            ->requirePresence('deleted', 'create')
             ->notEmptyString('deleted');
 
         $validator
             ->integer('modified_by')
-            ->requirePresence('modified_by', 'create')
-            ->notEmptyString('modified_by');
+            ->allowEmptyString('modified_by');
 
         $validator
             ->integer('user_id')

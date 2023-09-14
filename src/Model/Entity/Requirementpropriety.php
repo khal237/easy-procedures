@@ -15,7 +15,7 @@ use Cake\ORM\Entity;
  * @property string|null $default_value
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
- * @property bool|null $deleted
+ * @property bool $deleted
  * @property int $requirement_id
  *
  * @property \App\Model\Entity\Requirement $requirement

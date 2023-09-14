@@ -87,7 +87,8 @@ class RequirementproprietiesTable extends Table
 
         $validator
             ->boolean('deleted')
-            ->allowEmptyString('deleted');
+            ->requirePresence('deleted', 'create')
+            ->notEmptyString('deleted');
 
         $validator
             ->integer('requirement_id')

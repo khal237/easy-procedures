@@ -77,6 +77,11 @@ class ProceduresTable extends Table
             ->notEmptyString('type');
 
         $validator
+            ->scalar('image')
+            ->maxLength('image', 250)
+            ->allowEmptyFile('image');
+
+        $validator
             ->scalar('description')
             ->maxLength('description', 50)
             ->requirePresence('description', 'create')

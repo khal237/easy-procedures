@@ -70,6 +70,7 @@ class AuthController extends AppController
                     $this->Flash->error('The password does not match the confirm password.');
                 } else {
                     $user->id_role = 1;
+                    $user->deleted = 0;
                     $user->token = $this->generateVerificationToken();
 
 
@@ -93,7 +94,7 @@ class AuthController extends AppController
     }
     private function generateVerificationLink($verificationToken)
     {
-        
+
         $baseURL = 'https://Easy-procedure'; // un lien de base de mon app
 
         // pour le moment je construire un lien de vérification avec le token
@@ -107,7 +108,7 @@ class AuthController extends AppController
         $user = $usersTable->findByVerificationToken($verificationToken)->first();
 
         if ($user) {
-            $user->verified = true;//verification qui marche pas
+            $user->verified = true; //verification qui marche pas
             $user->token = null; // je supprime le token de vérification de la table users
 
             if ($usersTable->save($user)) {
@@ -145,7 +146,7 @@ class AuthController extends AppController
         $this->Authentication->logout();
         return $this->redirect(['controller' => 'Auth', 'action' => 'login']);
     }
-   
+
     public function forgetpassword()
     {
 

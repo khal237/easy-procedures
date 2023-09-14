@@ -9,12 +9,11 @@ use Cake\ORM\Entity;
  * Request Entity
  *
  * @property int $id
- * @property string $name
- * @property string $type
+ * @property string $status
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property bool $deleted
- * @property int $modified_by
+ * @property int|null $modified_by
  * @property int $user_id
  * @property int $procedure_id
  *
@@ -34,16 +33,15 @@ class Request extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'name' => true,
-        'type' => true,
-        'created' => true,
-        'modified' => true,
-        'deleted' => true,
-        'modified_by' => true,
-        'user_id' => true,
-        'procedure_id' => true,
-        'user' => true,
-        'procedure' => true,
-        'requestrequirements' => true,
+        'status' => true,
+        'created' =>false,
+        'modified' =>false,
+        'deleted' =>false,
+        'modified_by' =>false,
+        'user_id' =>false,
+        'procedure_id' =>false,
+        'user' =>false,
+        'procedure' =>false,
+        'requestrequirements' =>false,
     ];
 }

@@ -67,16 +67,16 @@ class RequestrequirementproprietiesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('value')
-            ->maxLength('value', 50)
-            ->requirePresence('value', 'create')
-            ->notEmptyString('value');
-
-        $validator
             ->scalar('name')
             ->maxLength('name', 250)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
+
+        $validator
+            ->scalar('value')
+            ->maxLength('value', 50)
+            ->requirePresence('value', 'create')
+            ->notEmptyString('value');
 
         $validator
             ->boolean('deleted')

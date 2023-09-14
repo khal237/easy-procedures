@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $type
+ * @property string|null $image
  * @property string $description
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
@@ -34,6 +35,7 @@ class Procedure extends Entity
     protected $_accessible = [
         'name' => true,
         'type' => true,
+        'image' => true,
         'description' => true,
         'created' => true,
         'modified' => true,

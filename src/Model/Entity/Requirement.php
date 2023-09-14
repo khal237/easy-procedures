@@ -11,10 +11,11 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property string $status
  * @property string|null $example
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
- * @property bool|null $deleted
+ * @property bool $deleted
  * @property int|null $modified_by
  * @property int $requirementtype_id
  *
@@ -36,6 +37,7 @@ class Requirement extends Entity
     protected $_accessible = [
         'name' => true,
         'description' => true,
+        'status' => true,
         'example' => true,
         'created' => true,
         'modified' => true,

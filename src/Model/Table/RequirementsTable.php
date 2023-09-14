@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -58,7 +59,7 @@ class RequirementsTable extends Table
         ]);
         $this->hasMany('Requirementproprieties', [
             'foreignKey' => 'requirement_id',
-        ]);
+        ])->setConditions(['Requirementproprieties.deleted' => false]);
     }
 
     /**
@@ -82,13 +83,19 @@ class RequirementsTable extends Table
             ->notEmptyString('description');
 
         $validator
+            ->scalar('status')
+            ->maxLength('status', 30)
+            ->notEmptyString('status');
+
+        $validator
             ->scalar('example')
             ->maxLength('example', 255)
             ->allowEmptyString('example');
 
         $validator
             ->boolean('deleted')
-            ->allowEmptyString('deleted');
+            ->requirePresence('deleted', 'create')
+            ->notEmptyString('deleted');
 
         $validator
             ->integer('modified_by')

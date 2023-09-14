@@ -52,7 +52,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-        $this->Authentication->allowUnauthenticated(['home', 'display']);
+       
 
 
         /** $this->Auth->allow(['home', 'display', 'login']);

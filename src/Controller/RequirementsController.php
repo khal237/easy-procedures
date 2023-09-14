@@ -21,9 +21,9 @@ class RequirementsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Requirementtypes'],
+            'conditions' => ['Requirements.deleted' => false],
         ];
         $requirements = $this->paginate($this->Requirements);
-        
         $this->set(compact('requirements'));
     }
 
@@ -38,6 +38,7 @@ class RequirementsController extends AppController
     {
         $requirement = $this->Requirements->get($id, [
             'contain' => ['Requirementtypes', 'Procedurerequirements', 'Requirementproprieties'],
+
         ]);
 
         $this->set(compact('requirement'));
@@ -97,11 +98,21 @@ class RequirementsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $requirement = $this->Requirements->get($id);
-        if ($this->Requirements->delete($requirement)) {
+
+        $requirement = $this->Requirements->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false],
+        ])->first();
+        if (empty($requirement)) {
+            $this->Flash->error("propriety not found");
+            $this->redirect($this->referer());
+        }
+
+        $requirement->set('deleted', true);
+
+        if ($this->Requirements->save($requirement)) {
             $this->Flash->success(__('The requirement has been deleted.'));
         } else {
             $this->Flash->error(__('The requirement could not be deleted. Please, try again.'));
@@ -109,4 +120,5 @@ class RequirementsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
 }

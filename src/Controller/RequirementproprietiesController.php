@@ -4,6 +4,9 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use App\Enum\REQUIREMENT_TYPES;
+use App\Enum\CommonStatus;
+use Cake\ORM\TableRegistry;
 
 
 /**
@@ -19,37 +22,33 @@ class RequirementproprietiesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($id)
     {
+        $requirement = $this->Requirementproprieties->Requirements->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false]
+        ])->first();
+
+        if (empty($requirement)) {
+            $this->Flash->error("requirement not found");
+            $this->redirect($this->referer());
+        }
+
         $this->paginate = [
-            'contain' => ['Requirements'],
+            'conditions' => ['requirement_id' => $id, 'deleted' => false],
         ];
+
         $requirementproprieties = $this->paginate($this->Requirementproprieties);
 
-        $this->set(compact('requirementproprieties'));
         $options = [
             'text' => 'Text',
             'date' => 'Date',
-            'file' => 'File',
-            'email' => 'Email'
+            'email' => 'Email',
+            'textarea' => 'Textarea',
+            'number' => 'Number',
+
         ];
-        $this->set('options', $options);
-    }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Requirementpropriety id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $requirementpropriety = $this->Requirementproprieties->get($id, [
-            'contain' => ['Requirements', 'Requestrequirementproprieties'],
-        ]);
-
-        $this->set(compact('requirementpropriety'));
+        $this->set(compact('requirementproprieties', 'options', 'requirement'));
     }
 
     /**
@@ -57,28 +56,45 @@ class RequirementproprietiesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id)
     {
+        $requirement = $this->Requirementproprieties->Requirements->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false]
+        ])->first();
+        if (empty($requirement)) {
+            $this->Flash->error("Impossible de trouver le requirement");
+            $this->redirect($this->referer());
+        }
+
+        $requirementpropriety = $this->Requirementproprieties->newEmptyEntity();
+
+        if ($this->request->is('post')) {
+            $requirementpropriety = $this->Requirementproprieties->patchEntity(
+                $requirementpropriety,
+                $this->request->getData()
+            );
+
+            $requirementpropriety->deleted = 0;
+            $requirementpropriety->set('requirement_id', $id);
+
+            if ($this->Requirementproprieties->save($requirementpropriety)) {
+                $this->Flash->success(__('The requirement propriety has been saved.'));
+
+                return $this->redirect(['action' => 'index', $id]);
+            }
+            $this->Flash->error(__('The requirement propriety could not be saved. Please, try again.'));
+        }
+
         $options = [
             'text' => 'Text',
             'date' => 'Date',
-            'file' => 'File',
-            'email' => 'Email'
-        ];
-        $this->set('options', $options);
-        $requirementpropriety = $this->Requirementproprieties->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $requirementpropriety = $this->Requirementproprieties->patchEntity($requirementpropriety, $this->request->getData());
-            $requirementpropriety->deleted = 0;
-            if ($this->Requirementproprieties->save($requirementpropriety)) {
-                $this->Flash->success(__('The requirementpropriety has been saved.'));
+            'email' => 'Email',
+            'textarea' => 'Textarea',
+            'number' => 'Number',
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The requirementpropriety could not be saved. Please, try again.'));
-        }
-        $requirements = $this->Requirementproprieties->Requirements->find('list', ['limit' => 200])->all();
-        $this->set(compact('requirementpropriety', 'requirements'));
+        ];
+
+        $this->set(compact('requirementpropriety', 'options', 'requirement'));
     }
 
     /**
@@ -88,22 +104,41 @@ class RequirementproprietiesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id)
     {
-        $requirementpropriety = $this->Requirementproprieties->get($id, [
-            'contain' => [],
-        ]);
+        $requirementpropriety = $this->Requirementproprieties->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false],
+        ])->first();
+        if (empty($requirementpropriety)) {
+            $this->Flash->error("propriety not found");
+            $this->redirect($this->referer());
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $requirementpropriety = $this->Requirementproprieties->patchEntity($requirementpropriety, $this->request->getData());
+            $requirementpropriety = $this->Requirementproprieties->patchEntity(
+                $requirementpropriety,
+                $this->request->getData()
+            );
+
             if ($this->Requirementproprieties->save($requirementpropriety)) {
                 $this->Flash->success(__('The requirementpropriety has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', $requirementpropriety->requirement_id]);
             }
+
             $this->Flash->error(__('The requirementpropriety could not be saved. Please, try again.'));
         }
-        $requirements = $this->Requirementproprieties->Requirements->find('list', ['limit' => 200])->all();
-        $this->set(compact('requirementpropriety', 'requirements'));
+
+        $options = [
+            'text' => 'Text',
+            'date' => 'Date',
+            'email' => 'Email',
+            'textarea' => 'Textarea',
+            'number' => 'Number',
+
+        ];
+        $this->set('requirement_id', $id);
+        $this->set(compact('requirementpropriety', 'options'));
     }
 
     /**
@@ -113,16 +148,26 @@ class RequirementproprietiesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $requirementpropriety = $this->Requirementproprieties->get($id);
-        if ($this->Requirementproprieties->delete($requirementpropriety)) {
+
+        $requirementpropriety = $this->Requirementproprieties->find('all', [
+            'conditions' => ['id' => $id, 'deleted' => false],
+        ])->first();
+        if (empty($requirementpropriety)) {
+            $this->Flash->error("propriety not found");
+            $this->redirect($this->referer());
+        }
+
+        $requirementpropriety->set('deleted', true);
+
+        if ($this->Requirementproprieties->save($requirementpropriety)) {
             $this->Flash->success(__('The requirementpropriety has been deleted.'));
         } else {
             $this->Flash->error(__('The requirementpropriety could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index', $requirementpropriety->requirement_id]);
     }
 }

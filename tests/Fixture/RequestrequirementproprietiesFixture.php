@@ -21,9 +21,8 @@ class RequestrequirementproprietiesFixture extends TestFixture
             [
                 'id' => 1,
                 'value' => 'Lorem ipsum dolor sit amet',
-                'name' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-08-01 14:52:51',
-                'modified' => '2023-08-01 14:52:51',
+                'created' => '2023-09-04 10:51:55',
+                'modified' => '2023-09-04 10:51:55',
                 'deleted' => 1,
                 'requirementpropriety_id' => 1,
                 'requestrequirement_id' => 1,

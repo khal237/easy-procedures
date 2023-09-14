@@ -14,7 +14,7 @@
 </nav>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-8 m-auto">
         <div class="card">
             <div class="card-header">
                 <legend><?= __('Add User') ?></legend>
@@ -32,8 +32,10 @@
                             echo $this->Form->control('password', ['class' => 'form-control-success form-control']);
                             ?>
                         </fieldset>
-                        <div class="card-footer">
-                            <?= $this->Form->button(__('Submit', ['class' => 'btn btn-primary btn-sm'])) ?>
+                        <div class="card-footers">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="zmdi zmdi-circle-o"></i> Submit
+                            </button>
                         </div>
                         <?= $this->Form->end() ?>
                     </div>

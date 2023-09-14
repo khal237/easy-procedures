@@ -19,8 +19,7 @@
             <fieldset>
                 <legend><?= __('Add Request') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('type');
+                    echo $this->Form->control('status');
                     echo $this->Form->control('deleted');
                     echo $this->Form->control('modified_by');
                     echo $this->Form->control('user_id', ['options' => $users]);

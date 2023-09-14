@@ -9,13 +9,12 @@ use Cake\ORM\Entity;
  * Procedurerequirement Entity
  *
  * @property int $id
- * @property string $name
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
- * @property bool|null $deleted
  * @property int|null $modified_by
  * @property int $procedure_id
  * @property int $requirement_id
+ * @property boolean $deleted
  *
  * @property \App\Model\Entity\Procedure $procedure
  * @property \App\Model\Entity\Requirement $requirement
@@ -33,15 +32,13 @@ class Procedurerequirement extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'name' => true,
-        'created' => true,
-        'modified' => true,
-        'deleted' => true,
-        'modified_by' => true,
+        'created' => false,
+        'modified' => false,
+        'modified_by' => false,
         'procedure_id' => true,
         'requirement_id' => true,
-        'procedure' => true,
-        'requirement' => true,
-        'requestrequirements' => true,
+        'procedure' => false,
+        'requirement' => false,
+        'requestrequirements' => false,
     ];
 }

@@ -15,7 +15,11 @@
 </nav>
 <?php if ($user->id_role == 3) : ?>
     <div class="procedures index content">
-        <?= $this->Html->link(__('<i class="zmdi zmdi-plus"></i> Add New'), ['action' => 'add'], ['class' => 'button float-right', 'escape' => false]) ?>
+        <a href="<?= $this->Url->build(['action' => 'add']) ?>" class="button float-right">
+            <button type="button" class="btn btn-primary">
+                <i class="zmdi zmdi-plus"></i> Add New
+            </button>
+        </a>
         <h3 class="title-5 m-b-35"><?= __('Procedures') ?></h3>
         <div class="table-responsive">
             <table class="table table-borderless table-data3">
@@ -44,6 +48,7 @@
                                 </div>
                             </td>
                         </tr>
+
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -51,25 +56,19 @@
     </div>
 <?php endif; ?>
 <?php if ($user->id_role == 1) : ?>
-    <?php foreach ($procedures as $procedure) : ?>
-        <a href="<?= $this->Url->build(['controller' => 'requirements', 'action' => 'index']) ?>">
-            <div class="row m-t-25">
-                <div class="col-sm-6 col-lg-10">
-                    <div class="overview-item overview-item--c2">
-                        <div class="overview__inner">
-                            <div class="overview-box clearfix">
-                                <div class="icon">
-                                    <i class="zmdi zmdi-calendar-note"></i>
-                                </div>
-                                <div class="text">
-                                    <h2><?= h($procedure->name) ?></h2>
-                                    <span>&nbsp;</span>
-                                </div>
-                            </div>
-                        </div>
+    <h3 class="title-5 m-b-35"><?= __('Procedures') ?></h3>
+    <div class="row">
+        <?php foreach ($procedures as $procedure) : ?>
+            <div class="col-sm-auto">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="<?= $this->Path->template_path() ?>images/<?= h($procedure->image) ?>" alt="Card image cap">
+                    <div class="card-body">
+                        <h4 class="card-title"><?= h($procedure->name) ?></h4>
+                        <p class="card-text"></p>
+                        <a href="<?= $this->Url->build(['controller' => 'procedurerequirements', 'action' => 'details' ,$procedure->id]); ?>" class="btn btn-primary">Go Details</a>
                     </div>
                 </div>
             </div>
-        </a>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>

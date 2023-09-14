@@ -237,7 +237,7 @@ return [
             'host' => 'smtp.gmail.com',
             'port' => 587,
             'timeout' => 30,
-           
+
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
@@ -245,7 +245,7 @@ return [
             'password' => 'ipidmbktrczopiap',
             'client' => null,
             'tls' => true,
-            'crypto'=>'tls',
+            'crypto' => 'tls',
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
@@ -422,6 +422,7 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php',
+        'defaults' => 'cake',
+        'timeout' => 60,
     ],
 ];
