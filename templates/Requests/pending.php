@@ -8,13 +8,13 @@
 
 <div class="requests index content">
     <h3 class="title-5 m-b-35"><?= __('Requests') ?></h3>
-    <div>
-        <form class="form-header" action="" method="POST">
-            <input class="au-input " type="text" name="search" placeholder="Search for datas &amp; reports..." />
-            <button class="au-btn--submit" type="submit">
-                <i class="zmdi zmdi-search"></i>
-            </button>
-        </form>
+    <div class="float-left">
+        <?= $this->Form->create(null, ['url' => ['controller' => 'Requests', 'action' => 'pending'], 'type' => 'get']) ?>
+        <input class="au-input" type="text" name="search" placeholder="Search by name of user" value="<?= $this->request->getQuery('search') ?>" />
+        <button class="btn btn-primary" type="submit">
+            <i class="zmdi zmdi-search"></i>
+        </button>
+        <?= $this->Form->end() ?>
     </div>
     <div class="table-responsive">
         <table class="table table-borderless table-data3">
@@ -29,26 +29,30 @@
             </thead>
             <tbody>
                 <?php foreach ($requests as $request) : ?>
-                    <?php if ($request->status === 'pending' ) : ?>
-                        <tr>
-                            <td><?= h($request->user->name) ?></td>
-                            <td><?= h($request->procedure->name) ?></td>
-                            <td><?= h($request->modified) ?></td>
-                            <?php if ($request->status === 'pending') : ?>
-                                <td><?= h($request->status) ?></td>
-                            <?php elseif ($request->status === 'rejected') : ?>
-                                <td class="denied"><?= h($request->status) ?></td>
-                            <?php elseif ($request->status === 'success') : ?>
-                                <td class="process"><?= h($request->status) ?></td>
-                            <?php endif; ?>
-                            <td class="actions">
-                                <div class="table-data-feature">
-                                    <?= $this->Html->link(__('<i class="zmdi zmdi-eye"></i>'), ['action' => 'firstview', $request->id], ['class' => 'item', 'escape' => false]) ?>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php endif; ?>
+                    <tr>
+                        <td><?= h($request->user->name) ?></td>
+                        <td><?= h($request->procedure->name) ?></td>
+                        <td><?= h($request->modified) ?></td>
+                        <?php if ($request->status === 'pending') : ?>
+                            <td><?= h($request->status) ?></td>
+                        <?php elseif ($request->status === 'rejected') : ?>
+                            <td class="denied"><?= h($request->status) ?></td>
+                        <?php elseif ($request->status === 'success') : ?>
+                            <td class="process"><?= h($request->status) ?></td>
+                        <?php endif; ?>
+                        <td class="actions">
+                            <div class="table-data-feature">
+                                <?= $this->Html->link(__('<i class="zmdi zmdi-eye"></i>'), ['action' => 'firstview', $request->id], ['class' => 'item', 'escape' => false]) ?>
+                            </div>
+                        </td>
+                    </tr>
+
                 <?php endforeach; ?>
+                <?php if ($requests->isEmpty()) : ?>
+                    <tr>
+                        <td colspan="5">No matching requests found.</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

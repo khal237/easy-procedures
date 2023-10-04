@@ -47,7 +47,7 @@ class RequirementproprietiesController extends AppController
             'number' => 'Number',
 
         ];
-
+        $this->add($id);
         $this->set(compact('requirementproprieties', 'options', 'requirement'));
     }
 

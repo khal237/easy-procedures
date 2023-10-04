@@ -16,12 +16,12 @@
     </nav>
     <div class="procedurerequirements index content">
 
-        <a href="<?= $this->Url->build(['action' => 'add', $procedure->id]) ?>" class="button float-right">
-            <button type="button" class="btn btn-primary">
+        <div class="button float-right">
+            <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#smallmodal">
                 <i class="zmdi zmdi-plus"></i> Add New
             </button>
-        </a>
-        <h3 class="title-5 m-b-35"><?= __('check requiment content') ?></h3>
+        </div>
+        <h3 class="title-5 m-b-35"><?= __('procedure requirement of') ?> <?= $procedure->name ?></h3>
         <div class="table-responsive">
             <table class="table table-borderless table-data3">
                 <thead>
@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($procedurerequirements as $procedurerequirement) : ?>
-
+                        <?php if($procedurerequirement->deleted == 0):?>
                         <tr>
                             <td><?= h($procedurerequirement->requirement->name) ?></td>
                             <td><?= h($procedurerequirement->created) ?></td>
@@ -43,12 +43,49 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php endif;?>
 
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- modal small -->
+    <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="smallmodalLabel">Add requirement on procedure </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?= $this->Form->create() ?>
+
+                    <fieldset>
+                        <?php
+                        echo $this->Form->control('requirement_id', ['options' => $requirements, 'multiple' => true, 'label' => 'requirement', 'class' => 'form-control-success form-control', 'label' => 'requirement*']);
+                        ?>
+                    </fieldset>
+                    <div class="card-footers">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="zmdi zmdi-circle-o"></i> Submit
+                        </button>
+                    </div>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal small -->
 <?php endif; ?>
 <?php if ($user->id_role == 1) : ?>
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -73,4 +110,5 @@
             </div>
         <?php endforeach; ?>
     </div>
+
 <?php endif; ?>

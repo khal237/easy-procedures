@@ -20,13 +20,14 @@
             <legend><?= h($requirement->name) ?></legend>
         </div>
         <div class="card-body card-block">
-            <?= $this->Form->create() ?>
+            <?= $this->Form->create(null, ['enctype' => 'multipart/form-data']) ?>
 
             <?php if ($requirement->requirementtype_id == 3) : ?>
                 <?php foreach ($requirementproprieties as $requirementpropriety) : ?>
                     <?= $this->Form->control($requirementpropriety->name, [
                         'type' => $requirementpropriety->type, 
                         'class' => 'form-control-success form-control', 
+                        'label' =>$requirementpropriety->label, 
                         'required' => true, 
                         'value' => !empty($requestRequirement) 
                             ? $this->Requests->getPropertyValue($requirementpropriety->id, $requestRequirement->requestrequirementproprieties) 

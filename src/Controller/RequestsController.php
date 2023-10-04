@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Enum\CommonStatus;
 use App\Enum\REQUIREMENT_TYPES;
 use Cake\ORM\TableRegistry;
+use Laminas\Diactoros\UploadedFile;
 
 
 /**
@@ -41,11 +42,23 @@ class RequestsController extends AppController
      */
     public function request()
     {
-
         $userId = $this->Authentication->getIdentity()->getIdentifier();
         $this->paginate = [
             'contain' => ['Procedures', 'Users'],
         ];
+        $conditions = ['Requests.status !=' => 'Draft'];
+
+        if ($this->request->getQuery('search')) {
+            $searchTerm = $this->request->getQuery('search');
+            $conditions['Users.name LIKE'] = '%' . $searchTerm . '%';
+        }
+
+        if ($this->request->getQuery('status')) {
+            $status = $this->request->getQuery('status');
+            $conditions['Requests.status'] = $status;
+        }
+
+        $this->paginate['conditions'] = $conditions;
         $requests = $this->paginate($this->Requests);
 
         $this->set(compact('requests'));
@@ -56,25 +69,58 @@ class RequestsController extends AppController
         $userId = $this->Authentication->getIdentity()->getIdentifier();
         $this->paginate = [
             'contain' => ['Procedures', 'Users'],
+            'conditions' => ['Requests.status' => 'pending']
         ];
+        $conditions = ['Requests.status' => 'pending'];
+
+        if ($this->request->getQuery('search')) {
+            $searchTerm = $this->request->getQuery('search');
+            $conditions['Users.name LIKE'] = '%' . $searchTerm . '%';
+        }
+
+        $this->paginate['conditions'] = $conditions;
         $requests = $this->paginate($this->Requests);
+
 
         $this->set(compact('requests'));
     }
-    public function status($id)
+    public function requestapprobation($id)
     {
         $this->request->allowMethod(['post']);
 
-        $request = $this->Requests->get($id);
-        $request->status = 'pending';
+        $request = $this->Requests->get($id, [
+            'contain' => ['Procedures', 'Requestrequirements' => ['Procedurerequirements'=>['Requirements']]]
+        ]);
+       
+        $procedureRequirements = $this->Requests->Procedures->Procedurerequirements;
+        $requirementStatus = true;
 
-        if ($this->Requests->save($request)) {
-        } else {
-            $this->Flash->error('Une erreur s\'est produite lors de la mise à jour du statut.');
+        foreach ($procedureRequirements as $procedureRequirement) {
+            $matchingRequirement = $request->Requestrequirements->find()
+                ->where(['procedurerequirement_id' => $procedureRequirement->id ])
+                ->first();
+
+            if (!$matchingRequirement || $matchingRequirement->status !== 'pending') {
+                $requirementStatus = false;
+                break;
+            }
         }
-        return $this->redirect(['action' => 'index']);
+
+        if ($requirementStatus) {
+            $request->status = 'pending';
+            if ($this->Requests->save($request)) {
+                $this->Flash->success('Tous les requis ont été remplis avec succès.');
+            } else {
+                $this->Flash->error('Une erreur s\'est produite lors de la mise à jour du statut.');
+            }
+        } else {
+            $this->Flash->error('Veuillez remplir tous les requis.');
+        }
+
+
+        return $this->redirect(['action' => 'requirementlist', $request->id]);
     }
-    public function cancelstatus($id)
+    public function cancelapprobation($id)
     {
         $this->request->allowMethod(['post']);
 
@@ -85,23 +131,38 @@ class RequestsController extends AppController
         } else {
             $this->Flash->error('Une erreur s\'est produite lors de la mise à jour du statut.');
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'requirementlist', $request->id]);
     }
-    public function statustwo($id)
+    public function approudrequest($id)
     {
         $this->request->allowMethod(['post']);
 
-        $request = $this->Requests->get($id);
-        $request->status = 'success';
+        $request = $this->Requests->get($id, [
+            'contain' => ['Requestrequirements']
+        ]);
 
-        if ($this->Requests->save($request)) {
-        } else {
-            $this->Flash->error('Une erreur s\'est produite lors de la mise à jour du statut.');
+        $requirementstatus = true;
+        foreach ($request->requestrequirements as $requestrequirement) {
+            if ($requestrequirement->status !== 'success') {
+                $requirementstatus = false;
+                break;
+            }
         }
 
-        return $this->redirect(['action' => 'request']);
+        if ($requirementstatus) {
+            $request->status = 'success';
+
+            if ($this->Requests->save($request)) {
+            } else {
+                $this->Flash->error('Une erreur s\'est produite lors de la mise à jour du statut.');
+            }
+            $this->redirect(['action' => 'firstview', $request->id]);
+        } else {
+            $this->Flash->error('Certains Requestrequirements ont un statut "pending" ou "rejected".');
+            $this->redirect(['action' => 'firstview', $request->id]);
+        }
     }
-    public function statustree($id)
+    public function rejectrequest($id)
     {
         $this->request->allowMethod(['post']);
 
@@ -115,7 +176,7 @@ class RequestsController extends AppController
 
         return $this->redirect(['action' => 'request']);
     }
-    public function statusrequirement($id_req_requirement)
+    public function approuverequirement($id_req_requirement)
     {
         $this->request->allowMethod(['post']);
 
@@ -129,7 +190,7 @@ class RequestsController extends AppController
 
         return $this->redirect(['action' => 'firstview', $requestrequirement->request_id]);
     }
-    public function statusrequirementtwo($id_req_requirement)
+    public function rejectrequirement($id_req_requirement)
     {
         $this->request->allowMethod(['post']);
 
@@ -154,7 +215,7 @@ class RequestsController extends AppController
             if ($this->Requests->Requestrequirements->save($requestrequirement)) {
                 $this->Flash->success(__('raison send success in user'));
 
-                return $this->redirect(['action' => 'firstview' , $requestrequirement->request_id]);
+                return $this->redirect(['action' => 'firstview', $requestrequirement->request_id]);
             }
             $this->Flash->error(__('the raison can not send try again'));
         }
@@ -177,7 +238,7 @@ class RequestsController extends AppController
 
             $this->Flash->error("Can not load view.");
             return $this->redirect($this->referer());
-        } 
+        }
         $this->set(compact('requestrequirement'));
     }
     /**
@@ -284,8 +345,8 @@ class RequestsController extends AppController
     public function requirementlist($request_id)
     {
         $request = $this->Requests->find('all', [
-            'conditions' => ['id' => $request_id, 'Requests.deleted' => false],
-            'contain' => ['Requestrequirements'],
+            'conditions' => ['Requests.id' => $request_id, 'Requests.deleted' => false],
+            'contain' => ['Requestrequirements', 'Procedures'],
         ])->first();
 
         if (empty($request)) {
@@ -420,6 +481,7 @@ class RequestsController extends AppController
                 if ($this->Requests->Requestrequirements->save($requestRequirement)) {
                 } else {
                 }
+                $this->Flash->success('image upload sucess');
                 return $this->redirect([
                     'controller' => 'Requests', 'action' => 'requirementlist',
                     $request->id
@@ -438,8 +500,15 @@ class RequestsController extends AppController
 
     public function uploadRequirement($file): string
     {
+        if ($file instanceof UploadedFile && $file->getError() === UPLOAD_ERR_OK) {
+            $destinationDirectory = WWW_ROOT . 'template' . DS . 'images' . DS;
+            $filename = time() . '_' . $file->getClientFilename();
+            $destinationPath = $destinationDirectory . $filename;
 
-
-        return 'webroot/template/images/';
+            if ($file->moveTo($destinationPath)) {
+                return $destinationPath;
+            }
+        }
+        return $filename;
     }
 }

@@ -33,7 +33,7 @@
             <h3><?= h($requestrequirement->procedurerequirement->requirement->name) ?></h3>
             <?php if ($requestrequirement->value == null) : ?>
                 <?php foreach ($requestrequirement->requestrequirementproprieties as $requestrequirementpropriety) : ?>
-                    <table class=" table table-data2">
+                    <table class=" table table-data3">
                         <tr>
                             <td><?= h($requestrequirementpropriety->requirementpropriety->name) ?></td>
                             <td class="text-right"><?= h($requestrequirementpropriety->value) ?></td>
@@ -44,25 +44,27 @@
         </div>
     <?php endif; ?>
     <?php if ($user->id_role == 2 || $user->id_role == 3) : ?>
-        <div class="col-lg-5" style="margin-top: 1rem;">
-            <div class="button ml-2 float-left">
-                <?= $this->Form->postLink(
-                    __(
-                        '<button type="button" class="btn btn-primary"> <i class="fa fa-check"></i> approud</button>'
-                    ),
-                    ['controller' => 'Requests', 'action' => 'statusrequirement', $requestrequirement->id],
-                    ['escape' => false]
-                ) ?>
+        <?php if ($requestrequirement->status === 'pending') : ?>
+            <div class="col-lg-5" style="margin-top: 1rem;">
+                <div class="button ml-2 float-left">
+                    <?= $this->Form->postLink(
+                        __(
+                            '<button type="button" class="btn btn-success"> <i class="fa fa-check"></i> approud</button>'
+                        ),
+                        ['controller' => 'Requests', 'action' => 'approuverequirement', $requestrequirement->id],
+                        ['confirm' => __('Are you sure you want to approve requirement?'), 'escape' => false]
+                    ) ?>
+                </div>
+                <div class="button ml-2 float-left" style="margin-left: 0.5rem;">
+                    <?= $this->Form->postLink(
+                        __(
+                            '<button type="button" class="btn btn-danger"> <i class="fa fa-close"></i> reject</button>'
+                        ),
+                        ['controller' => 'Requests', 'action' => 'rejectrequirement', $requestrequirement->id],
+                        ['confirm' => __('Are you sure you want to reject requirement?'), 'escape' => false]
+                    ) ?>
+                </div>
             </div>
-            <div class="button ml-2 float-left" style="margin-left: 0.5rem;">
-                <?= $this->Form->postLink(
-                    __(
-                        '<button type="button" class="btn btn-primary"> <i class="fa fa-close"></i> rejected</button>'
-                    ),
-                    ['controller' => 'Requests', 'action' => 'statusrequirementtwo', $requestrequirement->id],
-                    ['escape' => false]
-                ) ?>
-            </div>
-        </div>
+        <?php endif; ?>
     <?php endif; ?>
 </div>

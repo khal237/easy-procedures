@@ -30,6 +30,7 @@
                             echo $this->Form->control('name', ['class' => 'form-control-success form-control', 'label' => 'name*']);
                             echo 'type';
                             echo $this->Form->select(h('type'), $options,  ['class' => 'form-control-success form-control']);
+                            echo $this->Form->control('label', ['class' => 'form-control-success form-control', 'label' => 'label*']);
                             echo $this->Form->control('description', ['class' => 'form-control-success form-control', 'type' => 'textarea', 'label' => 'description*']);
                             echo $this->Form->control('default_value', ['class' => 'form-control-success form-control', 'label' => 'default value']);
                             ?>

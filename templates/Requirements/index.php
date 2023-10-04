@@ -14,11 +14,11 @@
 </nav>
 <?php if ($user->id_role == 3) : ?>
     <div class="requirements index content">
-        <a href="<?= $this->Url->build(['action' => 'add']) ?>" class="button float-right">
-            <button type="button" class="btn btn-primary">
+        <div class="button float-right">
+            <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#smallmodal">
                 <i class="zmdi zmdi-plus"></i> Add New
             </button>
-        </a>
+        </div>
         <h3 class="title-5 m-b-35"><?= __('Requirements') ?></h3>
         <div class="table-responsive m-b-40">
             <table class="table table-borderless table-data3">
@@ -77,4 +77,42 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- modal small -->
+    <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="smallmodalLabel">Add requirements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?= $this->Form->create() ?>
+
+                    <fieldset>
+
+                        <?= $this->Form->control('name', ['class' => 'form-control-success form-control', 'label' => 'name*']); ?>
+                        <?= $this->Form->control('description', ['class' => 'form-control-success form-control', 'type' => 'textarea', 'label' => 'description*']); ?>
+                        <?= $this->Form->control('example', ['class' => 'form-control-success form-control']); ?>
+                        <?= $this->Form->control('requirementtype_id', ['options' => $requirementtypes, 'class' => 'form-control-success form-control']); ?>
+                    </fieldset>
+                    <div class="card-footers">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="zmdi zmdi-circle-o"></i> Submit
+                        </button>
+                    </div>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal small -->
 <?php endif; ?>

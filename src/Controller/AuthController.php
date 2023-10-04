@@ -83,7 +83,7 @@ class AuthController extends AppController
                             ->deliver('Click on the following link to verify your email: ' . $this->generateVerificationLink($user->token));
 
                         $this->Flash->success('An email verification link has been sent to your email address.');
-                        return $this->redirect(['action' => 'verify']);
+                        return $this->redirect(['action' => 'login']);
                     } else {
                         $this->Flash->error('Une erreur s\'est produite lors de l\'enregistrement de votre compte.');
                     }

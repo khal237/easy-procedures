@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Filesystem\Filesystem;
-use  Cake\Http\ServerRequest\UploadedFile;
+use Laminas\Diactoros\UploadedFile;
 
 /**
  * Procedures Controller
@@ -28,7 +28,7 @@ class ProceduresController extends AppController
         $procedures = $this->paginate(
             $this->Procedures
         );
-
+        $this->add();
         $this->set(compact('procedures'));
     }
 
@@ -58,10 +58,11 @@ class ProceduresController extends AppController
         $procedure = $this->Procedures->newEmptyEntity();
 
 
-
+        
         if ($this->request->is('post')) {
-            $procedure = $this->Procedures->patchEntity($procedure, $this->request->getData());
             
+            $procedure = $this->Procedures->patchEntity($procedure, $this->request->getData());
+
             $procedure->deleted = 0;
             if ($this->Procedures->save($procedure)) {
                 $this->Flash->success(__('The procedure has been saved.'));
@@ -135,10 +136,11 @@ class ProceduresController extends AppController
 
         $this->set(compact('procedure'));
     }
-    public function request()  {
+    public function request()
+    {
 
-           $this->paginate = [
-            'contain' =>['Requests'],
+        $this->paginate = [
+            'contain' => ['Requests'],
             'conditions' => ['deleted' => false]
         ];
         $procedures = $this->paginate(
@@ -147,4 +149,4 @@ class ProceduresController extends AppController
 
         $this->set(compact('procedures'));
     }
-}
+   }

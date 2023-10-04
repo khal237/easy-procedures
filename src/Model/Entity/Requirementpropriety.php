@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $type
  * @property string $name
+ * @property string $label
  * @property string|null $description
  * @property string|null $default_value
  * @property \Cake\I18n\FrozenTime $created
@@ -35,6 +36,7 @@ class Requirementpropriety extends Entity
     protected $_accessible = [
         'type' => true,
         'name' => true,
+        'label' => true,
         'description' => true,
         'default_value' => true,
         'created' => true,

@@ -25,6 +25,7 @@ class RequirementsController extends AppController
         ];
         $requirements = $this->paginate($this->Requirements);
         $this->set(compact('requirements'));
+        $this->add();
     }
 
     /**

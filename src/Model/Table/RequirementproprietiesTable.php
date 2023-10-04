@@ -76,6 +76,12 @@ class RequirementproprietiesTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->scalar('label')
+            ->maxLength('label', 250)
+            ->requirePresence('label', 'create')
+            ->notEmptyString('label');
+
+        $validator
             ->scalar('description')
             ->maxLength('description', 250)
             ->allowEmptyString('description');

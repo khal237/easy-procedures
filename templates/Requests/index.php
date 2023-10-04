@@ -39,10 +39,10 @@
                             </span>
                         <?php endif; ?>
                     </p>
-                    <?php if ($request->status === 'Draft' || $request->status === 'pending' ) : ?>
+                    <?php if ($request->status === 'Draft' || $request->status === 'pending' || $request->status === 'rejected') : ?>
                         <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'requirementlist', $request->id]); ?>" class="btn btn-primary">Edit</a>
-                        <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'firstview', $request->id]); ?>" class="btn btn-primary">View</a>
-                        <?= $this->Form->postLink(__('cancel'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id), 'class' => 'btn btn-primary']) ?>
+                        <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'firstview', $request->id]); ?>" class="btn btn-info">View</a>
+                        <?= $this->Form->postLink(__('cancel'), ['action' => 'delete', $request->id], ['confirm' => __('Are you sure you want to delete # {0}?', $request->id), 'class' => 'btn btn-danger']) ?>
                     <?php endif; ?>
                 </div>
             </div>

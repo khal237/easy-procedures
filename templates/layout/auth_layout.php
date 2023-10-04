@@ -43,7 +43,7 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="<?= $this->Path->template_path() ?>images/icon/logo.png" alt="CoolAdmin">
+                                <img  src="<?= $this->Path->template_path() ?>images/icon/logo.png" alt="CoolAdmin">
                             </a>
                         </div>
                             <center><?= $this->Flash->render() ?></center>

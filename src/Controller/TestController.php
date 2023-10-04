@@ -38,6 +38,15 @@ class TestController extends AppController
         $user = $usersTable->get($userId);
         $this->set('user', $user);
     }
+    public function count()
+    {
+         $Table= $this->fetchTable('Requests');
+         
+        $count = $Table->find(
+        )->count();
+
+        $this->set(compact($count));
+    }
     
 }
 

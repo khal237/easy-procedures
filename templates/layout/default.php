@@ -57,39 +57,55 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
+                        <li <?= $this->request->getParam('controller') == 'Test' ? 'class="active"' : '' ?>>
+                            <a href="<?= $this->Url->build(['controller' => 'Test', 'action' => 'index',]) ?>" class="active">
                                 <i class="fas fa-tachometer-alt"></i><?= __('Dashboad') ?>
                             </a>
                         </li>
                         <?php if ($user->id_role == 2 || $user->id_role == 3) : ?>
-                            <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('Requirements') ?>
+                            <li <?= $this->request->getParam('controller') == 'Requests' ? 'class="active has-sub"' : '' ?>>
+                                <a href="#" class="js-arrow">
+                                    <i class="fas fa-folder"></i><?= __('Requests') ?>
+                                </a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'request']) ?>">All Requests</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'pending']) ?>">pending</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($user->id_role == 3) : ?>
+                            <li <?= $this->request->getParam('controller') == 'Requirements' ||  $this->request->getParam('controller') == 'Requirementproprieties' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('Requirements') ?>
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirementpropieties', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('Requirementproprieties') ?>
+                            <li <?= $this->request->getParam('controller') == 'Procedures' || $this->request->getParam('controller') == 'Procedurerequirements' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Procedures', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('Procedures') ?>
                                 </a>
                             </li>
-
+                            <li <?= $this->request->getParam('controller') == 'Users' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-user"></i><?= __('User') ?>
+                                </a>
+                            </li>
                         <?php endif; ?>
                         <?php if ($user->id_role == 1) : ?>
-                            <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('follow procedure') ?>
+                            <li <?= $this->request->getParam('controller') == 'Procedures'  || $this->request->getParam('controller') == 'Procedurerequirements' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Procedures', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('Procedures') ?>
                                 </a>
-
                             </li>
-                            <li>
-                                <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>">
-                                    <i class="fas fa-copy"></i><?= __('consult a procedure') ?>
+                            <li <?= $this->request->getParam('controller') == 'Requests' &&  $this->request->getParam('action') == 'index' ? 'class="active"' : '' ?>>
+                                <a href="<?= $this->Url->build(['controller' => 'Requests', 'action' => 'index']) ?>" class="active">
+                                    <i class="fas fa-folder"></i><?= __('My Procedures') ?>
                                 </a>
-
                             </li>
                         <?php endif; ?>
-
                     </ul>
                 </div>
             </nav>
@@ -125,6 +141,8 @@
                                     </li>
                                 </ul>
                             </li>
+                            <?php endif;?>
+                            <?php if ( $user->id_role == 3) : ?>
                             <li <?= $this->request->getParam('controller') == 'Requirements' ||  $this->request->getParam('controller') == 'Requirementproprieties' ? 'class="active"' : '' ?>>
                                 <a href="<?= $this->Url->build(['controller' => 'Requirements', 'action' => 'index']) ?>" class="active">
                                     <i class="fas fa-folder"></i><?= __('Requirements') ?>
@@ -167,13 +185,15 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="header-wrap">
-                            <?= $this->Form->create(null, ['class' => 'form-header']) ?>
-                            <?php if ($this->request->getParam('action')  == 'index' && $this->request->getParam('controller') != 'Test') : ?>
-                                <?= $this->Form->input('query', ['class' => 'au-input au-input--xl', 'placeholder' => 'Search', $this->request->getParam('controller')]) ?>
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            <?php endif; ?>
+                            <div class="form-header">
+                                <?= $this->Form->create(null, ['class' => 'form-header']) ?>
+                                <?php if ($this->request->getParam('action')  == 'index' && $this->request->getParam('controller') != 'Test') : ?>
+                                    <?= $this->Form->input('query', ['class' => 'au-input au-input--xl', 'placeholder' => 'Search', $this->request->getParam('controller')]) ?>
+                                    <button class="au-btn--submit" type="submit">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                <?php endif; ?>
+                            </div>
                             <?= $this->Form->end() ?>
                             <div class="header-button">
                                 <div class="account-wrap">

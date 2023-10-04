@@ -35,7 +35,7 @@
     <?php if($user->id_role == 1 || $user->id_role == 3):?>
     <div class="buttons">
         <p><a href="#" class="change-password-link"><i class="fa fa-key"></i>change password?</a></p>
-        <p><a href="#" class="change-password-links"><i class="fa fa-edit"></i>edit profil</a></p>
+        <p><a href="<?= $this->Url->build(['controller'=>'Users', 'action'=>'edit' , $user->id])?>" class="change-password-links"><i class="fa fa-edit"></i>edit profil</a></p>
     </div>
     <?php endif;?>
     <style>

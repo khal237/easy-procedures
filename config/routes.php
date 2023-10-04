@@ -52,7 +52,7 @@ return static function (RouteBuilder $routes) {
          * to use (in this case, templates/Pages/home.php)...
          */
 
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/', ['controller' => 'Auth', 'action' => 'login']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -60,16 +60,32 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/pages/*', 'Pages::display');
 
         $builder->connect(
-            '/requirements/properties/{id}',
-            ['controller' => 'Requirementproperties', 'action' => 'index'],
+            '/requirements/properties/index/{id}',
+            ['controller' => 'Requirementproprieties', 'action' => 'index'],
             ['id' => '\d+', 'pass' => ['id']]
         );
-
+        $builder->connect(
+            '/Home',
+            ['controller' => 'Test', 'action' => 'index']
+        );
 
         $builder->connect(
             '/procedures/properties/{id}',
             ['controller' => 'Procedurerequirements', 'action' => 'index'],
             ['id' => '\d+', 'pass' => ['id']]
+        );
+       
+        $builder->connect(
+            '/agentlist',
+            ['controller' => 'Users', 'action' => 'index']
+        );
+        $builder->connect(
+            '/requests',
+            ['controller' => 'Requests', 'action' => 'request']
+        );
+        $builder->connect(
+            '/pending',
+            ['controller' => 'Requests', 'action' => 'pending']
         );
         /*
          * Connect catchall routes for all controllers.

@@ -12,7 +12,7 @@
             <li class="breadcrumb-item active" aria-current="page">Requirement</li>
         </ol>
     </nav>
-    <h3 class="title-5 m-b-35"><?= __('Requirements') ?></h3>
+    <h3 class="title-5 m-b-35"><?= __('Requirements of procedures') ?> <?= h($request->procedure->name) ?></h3>
     <div class="row">
         <?php foreach ($procedurerequirements as $procedurerequirement) : ?>
             <div class="col-sm-6">
@@ -65,6 +65,13 @@
                                     Status:
                                     <span class="badge badge-danger"><?= __("rejected") ?></span>
                                 </p>
+                                <a href="<?= $this->Url->build([
+                                                'controller' => 'Requests', 'action' => 'fill',
+                                                $procedurerequirement->id, $request->id
+                                            ]); ?>" class="btn btn-primary float-right">
+                                    <i class="fa fa- mr-1"></i>
+                                    <?= __("Edit") ?>
+                                </a>
                                 <br>
                                 <p class="card-text ">
                                     <strong>Raison:</strong>
@@ -86,21 +93,21 @@
         <?php endforeach; ?>
     </div>
     <div class="col-lg-6 offset-5">
-        <?php if ($request->status === 'Draft') : ?>
+        <?php if ($request->status === 'Draft' || $request->status === 'rejected') : ?>
             <?= $this->Form->postLink(
                 __(
-                    '<button type="button" class="btn btn-primary"> Request Approbation</button>'
+                    '<button type="button" class="btn btn-success"> Request Approbation</button>'
                 ),
-                ['controller' => 'Requests', 'action' => 'status', $request->id],
-                ['escape' => false]
+                ['controller' => 'Requests', 'action' => 'requestapprobation', $request->id],
+                ['confirm' => __('Are you sure you want to approve request?'),'escape' => false]
             ) ?>
         <?php elseif ($request->status === 'pending') : ?>
             <?= $this->Form->postLink(
                 __(
-                    '<button type="button" class="btn btn-primary"> cancel aprobations</button>'
+                    '<button type="button" class="btn btn-danger"> cancel aprobations</button>'
                 ),
-                ['controller' => 'Requests', 'action' => 'cancelstatus', $request->id],
-                ['escape' => false]
+                ['controller' => 'Requests', 'action' => 'cancelapprobation', $request->id],
+                ['confirm' => __('Are you sure you want to cancel request?'),'escape' => false]
             ) ?>
         <?php endif; ?>
     </div>

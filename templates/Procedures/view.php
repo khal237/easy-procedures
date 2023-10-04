@@ -16,25 +16,25 @@
     <div class="column-responsive column-80">
         <div class="procedures view content">
             <h3><?= h($procedure->name) ?></h3>
-            <table class='table table-data2'>
+            <table class='table table-data3'>
                 <tr>
-                    <th><?= __('Name') ?></th>
-                    <td><?= h($procedure->name) ?></td>
+                    <td><strong><?= __('Name') ?></strong></td>
+                    <td class="text-right"><?= h($procedure->name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Type') ?></th>
-                    <td><?= h($procedure->type) ?></td>
+                    <td><strong><?= __('Type') ?></strong></td>
+                    <td class="text-right"><?= h($procedure->type) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Description') ?></th>
-                    <td><?= h($procedure->description) ?></td>
+                    <td><strong><?= __('Description') ?></strong></td>
+                    <td class="text-right"><?= h($procedure->description) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($procedure->created) ?></td>
+                    <td><strong><?= __('Created') ?></strong></td>
+                    <td class="text-right"><?= h($procedure->created) ?></td>
                 </tr>
                 <tr>
-                    <th>
+                    <td>
                         <aside class="column">
                             <div class="side-nav">
                                 <div class="table-data-feature">
@@ -42,12 +42,12 @@
                                         <?= $this->Html->link(__('<i class="zmdi zmdi-edit"></i>Edit '), ['action' => 'edit', $procedure->id], ['class' => 'btn btn-primary', 'escape' => false]) ?>
                                     </div>
                                     <div class="col-2 offset-2">
-                                        <?= $this->Form->postLink(__('<i class="zmdi zmdi-delete"></i>Delete '), ['action' => 'delete', $procedure->id], ['confirm' => __('Are you sure you want to delete # {0}?', $procedure->id), 'class' => 'btn btn-primary', 'escape' => false]) ?>
+                                        <?= $this->Form->postLink(__('<i class="zmdi zmdi-delete"></i>Delete '), ['action' => 'delete', $procedure->id], ['confirm' => __('Are you sure you want to delete # {0}?', $procedure->id), 'class' => 'btn btn-danger', 'escape' => false]) ?>
                                     </div>
                                 </div>
                             </div>
                         </aside>
-                    </th>
+                    </td>
                     <td></td>
                 </tr>
 

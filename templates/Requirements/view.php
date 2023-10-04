@@ -16,33 +16,33 @@
     <div class="requirements view content">
         <div class="col-md-6">
             <h3><?= h($requirement->name) ?></h3>
-            <table class='table table-data2'>
+            <table class='table table-data3'>
                 <tr>
-                    <th><?= __('Name') ?></th>
-                    <td><?= h($requirement->name) ?></td>
+                    <td><strong><?= __('Name') ?></strong></td>
+                    <td class="text-right"><?= h($requirement->name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Description') ?></th>
-                    <td><?= h($requirement->description) ?></td>
+                    <td><strong><?= __('Description') ?></strong></td>
+                    <td class="text-right"><?= h($requirement->description) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Example') ?></th>
-                    <td><?= h($requirement->example) ?></td>
+                    <td><strong><?= __('Example') ?></strong></td>
+                    <td class="text-right"><?= h($requirement->example) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Requirementtype') ?></th>
-                    <td><?= $requirement->requirementtype->name ?></td>
+                    <td><strong><?= __('Requirementtype') ?></strong></td>
+                    <td class="text-right"><?= $requirement->requirementtype->name ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($requirement->created) ?></td>
+                    <td><strong><?= __('Created') ?></strong></td>
+                    <td class="text-right"><?= h($requirement->created) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($requirement->modified) ?></td>
+                    <td><strong><?= __('Modified') ?></strong></td>
+                    <td class="text-right"><?= h($requirement->modified) ?></td>
                 </tr>
                 <tr>
-                    <th>
+                    <td>
                         <aside class="column">
                             <div class="side-nav">
                                 <div class="table-data-feature">
@@ -50,12 +50,12 @@
                                         <?= $this->Html->link(__('<i class="zmdi zmdi-edit"></i>Edit '), ['action' => 'edit', $requirement->id], ['class' => 'btn btn-primary', 'escape' => false]) ?>
                                     </div>
                                     <div class="col-2 offset-2">
-                                        <?= $this->Form->postLink(__('<i class="zmdi zmdi-delete"></i>Delete '), ['action' => 'delete', $requirement->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->id), 'class' => 'btn btn-primary', 'escape' => false]) ?>
+                                        <?= $this->Form->postLink(__('<i class="zmdi zmdi-delete"></i>Delete '), ['action' => 'delete', $requirement->id], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->id), 'class' => 'btn btn-danger', 'escape' => false]) ?>
                                     </div>
                                 </div>
                             </div>
                         </aside>
-                    </th>
+                    </td>
                     <td></td>
                 </tr>
             </table>
@@ -87,24 +87,28 @@
             <h4><?= __('proprieties') ?></h4>
             <div class="table-responsive">
                 <table class="table table-borderless table-data3">
-                    <tr>
-                        <th><?= __('Name') ?></th>
-                        <th><?= __('Type') ?></th>
-                        <th><?= __('Description') ?></th>
-                        <th><?= __('Default Value') ?></th>
-                        <th><?= __('Created') ?></th>
-                    </tr>
-                    <?php foreach ($requirement->requirementproprieties as $requirementproprieties) : ?>
-                        <?php if ($requirementproprieties->deleted == 0) : ?>
-                            <tr>
-                                <td><?= h($requirementproprieties->name) ?></td>
-                                <td><?= h($requirementproprieties->type) ?></td>
-                                <td><?= h($requirementproprieties->description) ?></td>
-                                <td><?= h($requirementproprieties->default_value) ?></td>
-                                <td><?= h($requirementproprieties->created) ?></td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                    <thead>
+                        <tr>
+                            <th><?= __('Name') ?></th>
+                            <th><?= __('Type') ?></th>
+                            <th><?= __('Description') ?></th>
+                            <th><?= __('Default Value') ?></th>
+                            <th><?= __('Created') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($requirement->requirementproprieties as $requirementproprieties) : ?>
+                           
+                                <tr>
+                                    <td><?= h($requirementproprieties->name) ?></td>
+                                    <td><?= h($requirementproprieties->type) ?></td>
+                                    <td><?= h($requirementproprieties->description) ?></td>
+                                    <td><?= h($requirementproprieties->default_value) ?></td>
+                                    <td><?= h($requirementproprieties->created) ?></td>
+                                </tr>
+                          
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         <?php endif; ?>

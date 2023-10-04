@@ -30,11 +30,11 @@ class ProcedurerequirementsController extends AppController
         }
         $this->paginate = [
             'contain' => ['Requirements'],
-            'conditions' => ['procedure_id' => $id, 'requirements.deleted' => false],
+            'conditions' => ['procedure_id' => $id, 'Requirements.deleted' => false],
 
         ];
         $procedurerequirements = $this->paginate($this->Procedurerequirements);
-
+        $this->add($id);
         $this->set(compact('procedurerequirements', 'procedure'));
     }
     /**

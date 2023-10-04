@@ -18,15 +18,18 @@
 <div class="col-lg-10 md-auto">
     <div class="card border border-primary">
         <div class="card-body">
-            <h3>description</h3>
-            <p class="card-text">
+            <h3 class="title-2 m-b-35">description</h3>
+            <p >
                 <?= h($procedure->description) ?>
             </p>
-            <h3>Requirement-list</h3>
+
+            <h3 class="title-2 m-b-35">Requirement-list</h3>
+
             <?php $i = 1; ?>
-            <div id="accordion">
-                <div class="card">
-                    <?php foreach ($procedurerequirements as $procedurerequirement) : ?>
+            <?php foreach ($procedurerequirements as $procedurerequirement) : ?>
+                <?php if($procedurerequirement->deleted == 0):?>
+                <div id="accordion">
+                    <div class="card">
                         <div class="card-header" id="heading<?= $i ?>">
                             <h5 class="mb-0">
                                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?= $i ?>" aria-expanded="false" aria-controls="collapse">
@@ -34,15 +37,18 @@
                                 </button>
                             </h5>
                         </div>
-                        <div id="collapse<?= $i ?>" class="collapse" aria-labelledby="heading<?= $i ?>"  aria-expanded="false" data-parent="#accordion">
+                        <div id="collapse<?= $i ?>" class="collapse" aria-labelledby="heading<?= $i ?>" aria-expanded="false" data-parent="#accordion">
                             <div class="card-body">
                                 <?= h($procedurerequirement->requirement->description) ?>
                             </div>
                         </div>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
+
+                    </div>
                 </div>
-            </div>
+                <?php $i++; ?>
+                <?php endif;?>
+            <?php endforeach; ?>
+
             <?= $this->Form->postLink(__('<button type="button" class="btn btn-primary">
                     fill here
                 </button>'), ['controller' => 'Requests', 'action' => 'add',  $procedure->id], ['class' => "button float-right", 'escape' => false]) ?>

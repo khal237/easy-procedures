@@ -8,7 +8,7 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'test', 'action' => 'index']) ?>">Home</a></li>
-        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin list</a></li>
+        <li class="breadcrumb-item"><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Agent list</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add</li>
     </ol>
 </nav>
@@ -17,7 +17,7 @@
     <div class="col-lg-8 m-auto">
         <div class="card">
             <div class="card-header">
-                <legend><?= __('Add User') ?></legend>
+                <legend><?= __('Add Agent') ?></legend>
             </div>
             <div class="column-responsive column-80">
                 <div class="users form content">
